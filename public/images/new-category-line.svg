@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="412" height="32" viewBox="0 0 412 32">
+  <defs>
+    <filter id="new-category-line" x="0" y="0" width="412" height="32" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.251"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#new-category-line)">
+    <rect id="new-category-line-2" data-name="new-category-line" width="382" height="2" rx="1" transform="translate(15 12)" fill="#526d82" opacity="0.3"/>
+  </g>
+</svg>

@@ -1,0 +1,380 @@
+.hero {
+    height: 100vh;
+    padding: 0;
+    /* Eltávolítja a paddingot */
+    margin: 0;
+    /* Eltávolítja a margót */
+    position: static;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 65%;
+}
+
+.hero.section-style {
+    margin: 0;
+    /* Eltávolítja a margót */
+    position: relative;
+}
+
+.page-wrapper {
+    margin: 0;
+    /* Eltávolítja a margót */
+    padding: 0;
+    /* Eltávolítja a paddingot */
+    overflow: hidden;
+}
+
+.heading {
+    color: #dde6ed;
+    max-width: 41%;
+    margin-bottom: 20px;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 2.8em;
+    font-weight: 500;
+    line-height: 1em;
+}
+
+.heading-2 {
+    color: var(--light-text);
+    max-width: 36%;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1em;
+    color: #dde6ed;
+}
+
+.button-hero {
+    float: left;
+    background-image: url('/images/button-hover.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+    padding: 20px 51px 24px;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: .9em;
+    font-weight: 400;
+    text-decoration: none;
+    color: #dde6ed;
+}
+
+.section-style {
+    margin-top: 5.3em;
+    margin-bottom: 5.3em;
+}
+
+.section-style.digitalis-etlap,
+.section-style.fo-funkciok {
+    flex-flow: column;
+    align-items: center;
+    display: flex;
+}
+
+.section-style.letisztult-kulso {
+    background-color: #27374d;
+    justify-content: center;
+    align-items: center;
+    padding: 5em 10%;
+    display: flex;
+}
+
+.underline {
+    height: .5em;
+}
+
+.underline.margin90 {
+    margin-bottom: 5.5em;
+}
+
+.paragraph {
+    color: #27374d;
+    text-align: center;
+    width: 50%;
+    font-size: 1.1em;
+    font-family: Pro Display, sans-serif;
+    margin: 0;
+}
+
+.paragraph-dark-bg {
+    font-size: 1.1em;
+    width: 90%;
+    font-family: Pro Display, sans-serif;
+    color: #dde6ed;
+}
+
+.paragraph.paragraph-small {
+    font-family: Pro Display, sans-serif;
+    width: 37%;
+}
+
+.heading-4 {
+    color: #dde6ed;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1.54em;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.heading-5 {
+    color: #27374d;
+    margin-top: 20px;
+    margin-bottom: 0.5em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 2.4em;
+    font-weight: 500;
+    line-height: 1em;
+}
+
+.heading-dark-bg {
+    margin-top: 20px;
+    margin-bottom: 0.5em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 2.4em;
+    font-weight: 500;
+    line-height: 1em;
+    color: #dde6ed;
+}
+
+.heading-6 {
+    font-family: Pro Display, sans-serif;
+    color: #27374d;
+    font-size: 3em;
+}
+
+.heading-7 {
+    font-family: Pro Display, sans-serif;
+    color: #27374d;
+    font-size: 3em;
+}
+
+.heading-3 {
+    font-size: 1.3em;
+    font-weight: 300;
+    color: #dde6ed;
+    font-family: Pro Display, sans-serif;
+}
+
+.cards-container {
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 74.5em;
+    display: flex;
+}
+
+.card-wrapper {
+    position: relative;
+    margin-top: 1.5em;
+}
+
+.card-under {
+    background-color: #dde6ed;
+    border-radius: 1.3em;
+    min-width: 22.69em;
+    min-height: 11.54em;
+    margin-top: 0;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, .2);
+}
+
+.card-upper {
+    background-color: #526d82;
+    border-radius: 1.3em;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 22.69em;
+    min-height: 11.54em;
+    display: flex;
+    position: absolute;
+    top: -1em;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .15);
+}
+
+.card-image {
+    margin-top: 1.5em;
+}
+
+.underline-section2 {
+    height: .5em;
+    margin-bottom: 3.5em;
+}
+
+.paragraph-wrapper {
+    max-width: 50%;
+}
+
+.phone-mockup {
+    width: 13em;
+}
+
+.computer-mockup {
+    width: 33em;
+    margin-top: 4em;
+}
+
+.submit-btn {
+    color: #dde6ed;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('/images/button-hover.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 2em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1.1em;
+    border: none;
+}
+
+.text-field {
+    color: #dde6ed;
+    background-color: #526d82;
+    border-radius: .5em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1.2em;
+    line-height: 1em;
+    margin-bottom: .9em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-left: 1em;
+    border: none;
+}
+
+.text-field::placeholder {
+    color: #dde6ed;
+}
+
+.text-field.text-field-message {
+    padding-top: 20px;
+    padding-bottom: 8.33em;
+}
+
+.form-block-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-block {
+    width: 30em;
+
+}
+
+.spoon {
+    width: 240px;
+    position: absolute;
+    top: auto;
+    bottom: -25%;
+    left: auto;
+    right: 10%;
+}
+
+.tomato {
+    position: absolute;
+    top: auto;
+    bottom: -30%;
+    left: 6%;
+    right: auto;
+}
+
+.leaf {
+    width: 320px;
+    position: absolute;
+    top: 0%;
+    bottom: auto;
+    left: 52%;
+
+}
+
+.basil {
+    width: 130px;
+    position: absolute;
+    top: auto;
+    bottom: 25%;
+    left: 35%;
+    right: auto;
+}
+
+.w-form-done {
+    color: #27374d;
+    font-family: Sf Pro Display, sans-serif;
+}
+
+.w-form-fail {
+    color: #27374d;
+    font-family: Sf Pro Display, sans-serif;
+}
+
+@media screen and (min-width: 1920px) {
+    .hero.section-style {
+        margin-bottom: 0;
+        padding-top: 11em;
+    }
+
+    .page-wrapper {
+        margin-left: 13%;
+        margin-right: 13%;
+    }
+
+    .link {
+        font-size: 1.6em;
+        line-height: 1em;
+    }
+
+    .heading {
+        font-size: 3.5em;
+    }
+
+    .body {
+        background-size: 64%;
+    }
+
+    .heading-2 {
+        font-size: 1.5em;
+    }
+
+    .section-style.letisztult-kulso {
+        padding-left: 23em;
+        padding-right: 23em;
+    }
+
+    .paragraph {
+        font-size: 1.3em;
+    }
+
+    .paragraph.dark-bg {
+        width: 54%;
+        font-size: 1.3em;
+        color: #dde6ed;
+    }
+
+    .heading-3 {
+        font-size: 1.7em;
+    }
+
+    .card-image {
+        width: 3.2em;
+    }
+
+    .submit-btn {
+        font-size: 1.3em;
+    }
+
+    .heading-4,
+    .heading-5 {
+        font-size: 3em;
+    }
+
+    .heading-dark-bg {
+        font-size: 3em;
+    }
+
+    .heading-6,
+    .heading-7 {
+        font-size: 3em;
+    }
+}
