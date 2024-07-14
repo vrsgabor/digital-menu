@@ -9,8 +9,8 @@ const ContactSection = () => (
                 <input className={styles['text-field']} maxLength="256" name="name" data-name="Name" placeholder="Név" type="text" id="name" required />
                 <input className={styles['text-field']} maxLength="256" name="email" data-name="Email" placeholder="E-mail" type="email" id="email" required />
                 <input className={`${styles['text-field']} ${styles['text-field-message']}`} maxLength="256" name="Text" data-name="Text" placeholder="Üzenet" type="text" id="Text" required />
-                <input type="submit" data-wait="Kérjük várjon..." className={styles['submit-btn']} value="Küldés" />
             </form>
+            <input type="submit" data-wait="Kérjük várjon..." className={styles['submit-btn']} value="Küldés" />
             <div className={styles['w-form-done']}>
                 <div>Köszönjük! Az üzenet sikeresen elküldve✅</div>
             </div>

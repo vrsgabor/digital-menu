@@ -76,10 +76,10 @@
 
 .section-style.letisztult-kulso {
     background-color: #27374d;
-    justify-content: center;
     align-items: center;
-    padding: 5em 10%;
+    padding: 5em 15%;
     display: flex;
+    justify-content: space-between;
 }
 
 .underline {
@@ -219,16 +219,22 @@
 }
 
 .submit-btn {
-    color: #dde6ed;
-    background-color: rgba(0, 0, 0, 0);
+    float: left;
     background-image: url('/images/button-hover.svg');
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: contain;
-    padding: 2em;
+    margin-top: 1em;
+    margin-right: 1.5em;
+    padding: 20px 51px 24px;
     font-family: Sf Pro Display, sans-serif;
-    font-size: 1.1em;
+    font-size: .9em;
+    font-weight: 400;
+    text-decoration: none;
+    color: #dde6ed;
     border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .text-field {
@@ -236,7 +242,7 @@
     background-color: #526d82;
     border-radius: .5em;
     font-family: Sf Pro Display, sans-serif;
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1em;
     margin-bottom: .9em;
     padding-top: 0.7em;
