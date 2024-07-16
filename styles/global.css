@@ -1,16 +1,13 @@
-/* Global Styles */
 :root {
     --light-text: #dde6ed;
     --white: white;
     --black: black;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-}
+
 
 body {
+    margin: 0;
     background-color: #dde6ed;
     font-family: Sf Pro Display, sans-serif;
     font-size: 14px;
@@ -24,37 +21,10 @@ a {
     text-decoration: none;
 }
 
-.navbar {
-    z-index: 2;
-    background-color: #526d82;
-    border-bottom-left-radius: 1em;
-    padding: 0;
-    position: fixed;
-    top: 0%;
-    bottom: auto;
-    left: auto;
-    right: 0%;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
-}
-
 .link {
     color: #dde6ed;
     font-family: Sf Pro Display, sans-serif;
     font-size: 1.28em;
     line-height: 1em;
     text-decoration: none;
-}
-
-.login-link-block {
-    background-color: #27374d;
-    border-radius: 1em;
-    margin: 15px 30px 15px 0;
-    padding: 15px 25px;
-    font-family: Sf Pro Display, sans-serif;
-    text-decoration: none;
-}
-
-.login-link-block.link-block-left {
-    background-color: rgba(0, 0, 0, 0);
-    margin-left: 30px;
 }
