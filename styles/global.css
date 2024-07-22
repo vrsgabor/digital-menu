@@ -28,3 +28,10 @@ a {
     line-height: 1em;
     text-decoration: none;
 }
+
+.page-wrapper-etlap {
+    padding-left: 20%;
+    padding-right: 5%;
+    padding-top: 4.2em;
+    overflow: hidden;
+}
