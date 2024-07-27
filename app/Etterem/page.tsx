@@ -1,3 +1,4 @@
+'use client'
 import '../../styles/global.css';
 import LeftNav from '../../components/LeftNav';
 import HeaderEtterem from '../../components/HeaderEtterem';
