@@ -7,7 +7,7 @@ import Dashboard from '../../components/Dashboard';
 const Etterem = () => (
   <div className="nav-wrapper">
         <LeftNav/>
-        <div className="page-wrapper-etlap">
+        <div className="page-wrapper-etterem">
             <HeaderEtterem/>
             <Dashboard/>
     </div>

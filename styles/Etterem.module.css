@@ -1,7 +1,7 @@
 .dashboardWrapper {
     display: flex;
     flex-direction: column;
-    padding: 2em;
+    padding: 1.5em;
 }
 
 .topSection{
@@ -37,10 +37,10 @@
 }
 
 .KpiCardTitle {
-    color: #27374d;
+    color:#526d82;
     font-family: Sf Pro Display, sans-serif;
     font-size: 1em;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center;
 }
 
@@ -52,17 +52,21 @@
     padding-right: 2em;
     border-radius: .8em;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .dashBar{
     margin-left: 2em;
     margin-bottom: 2em;
     width: 33%;
-    padding: 1em;
+    padding: 3.75em;
     padding-left: 2em;
     padding-right: 2em;
     border-radius: .8em;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    height: 100%;
 }
 
 .dashLine{

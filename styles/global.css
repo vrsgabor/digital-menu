@@ -35,3 +35,11 @@ a {
     padding-top: 4.2em;
     overflow: hidden;
 }
+
+.page-wrapper-etterem {
+    padding-left: 20%;
+    padding-right: 5%;
+    padding-top: 1.5em;
+    overflow: hidden;
+    max-height: 100vh;
+}

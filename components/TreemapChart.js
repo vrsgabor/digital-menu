@@ -1,128 +1,120 @@
-'use client'; // Add this line at the top
+'use client';  // Add this line at the top
 
-import React, { useEffect, useRef } from 'react';
-import { Chart, registerables } from 'chart.js';
-import { TreemapController, TreemapElement } from 'chartjs-chart-treemap';
-
-Chart.register(...registerables, TreemapController, TreemapElement);
+import React from 'react';
+import Chart from 'react-apexcharts';
 
 const TreemapChart = () => {
-  const chartRef = useRef(null);
-  const chartInstanceRef = useRef(null);
-
-  const main = ['Main Courses', 'Soups', 'Drinks'];
-
-  const sub = [
-    ['Pizza', 'Pasta', 'Steak'],
-    ['Chicken Soup', 'Tomato Soup', 'Minestrone'],
-    ['Water', 'Soda', 'Juice']
-  ];
-
-  const values = [
-    [20, 20, 20],  // Values for Main Courses
-    [10, 10, 10],  // Values for Soups
-    [3, 3, 4]      // Values for Drinks
-  ];
-
-  const baseColor = '#27374d';
-
-  const generateShades = (color, numberOfShades) => {
-    const shades = [];
-    for (let i = 0; i < numberOfShades; i++) {
-      const shade = shadeColor(color, i * (100 / numberOfShades));
-      shades.push(shade);
-    }
-    return shades;
-  };
-
-  const shadeColor = (color, percent) => {
-    const num = parseInt(color.slice(1), 16);
-    const amt = Math.round(2.55 * percent);
-    const R = (num >> 16) + amt;
-    const G = (num >> 8 & 0x00FF) + amt;
-    const B = (num & 0x0000FF) + amt;
-    return `#${(0x1000000 + (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 + (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 + (B < 255 ? (B < 1 ? 0 : B) : 255)).toString(16).slice(1).toUpperCase()}`;
-  };
-
-  const colors = [
-    generateShades(baseColor, 3),
-    generateShades(baseColor, 3),
-    generateShades(baseColor, 3)
-  ];
-
-  useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
-
-    // Destroy the previous chart instance if it exists
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
-
-    const data = [];
-
-    // Convert the array structure to the required format for the treemap
-    main.forEach((category, i) => {
-      // Add the main category with the total value of its subcategories
-      data.push({ category, label: category, value: values[i].reduce((a, b) => a + b, 0), color: colors[i][0] });
-
-      // Add each subcategory
-      sub[i].forEach((label, j) => {
-        data.push({ category, label, value: values[i][j], color: colors[i][j] });
-      });
-    });
-
-    chartInstanceRef.current = new Chart(ctx, {
-      type: 'treemap',
-      data: {
-        datasets: [{
-          tree: data,
-          key: 'value',
-          groups: ['category', 'label'],
-          spacing: 0.1,
-          borderWidth: 1,
-          borderColor: 'white',
-          backgroundColor: function (context) {
-            const dataIndex = context.dataIndex;
-            const dataset = context.dataset;
-            const dataItem = dataset.tree[dataIndex];
-            return dataItem ? dataItem.color : '#ffffff'; // Default color if undefined
-          },
-          labels: {
-            display: true,
-            align: 'center',
-            color: 'white',
-            font: {
-              size: 10, // Smaller text size
-              weight: 'bold'
-            }
-          }
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            enabled: false
-          }
+    const options = {
+        chart: {
+            type: 'treemap',
+            toolbar: {
+                show: false, // Hide the menu
+            },
+            background: '#dde6ed' // Set chart background color
         },
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-
-    // Cleanup function to destroy the chart instance when the component unmounts
-    return () => {
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.destroy();
-      }
+        colors: ['#27374d', '#3b4c65', '#526d82'],
+        legend: {
+            show: true, // Show the legends
+            labels: {
+                colors: '#526d82',
+                useSeriesColors: true,
+                fontFamily: 'Sf Pro Display, sans-serif'
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value) {
+                    return `${value}%`;
+                }
+            }
+        },
+        title: {
+            text: 'Akt. hónap étel kategóriák',
+            align: 'left',
+            style: {
+                fontSize: '14px',
+                color: '#526d82',
+                fontFamily: 'Sf Pro Display, sans-serif',
+                fontWeight: 'bold' // Set the font weight to bold
+            }
+        },
+        plotOptions: {
+            treemap: {
+                distributed: true,
+                enableShades: true,
+                shadeIntensity: 0.5,
+                reverseNegativeShade: true,
+                colorScale: {
+                    ranges: [
+                        { from: 0, to: 20, color: '#27374d' },
+                        { from: 21, to: 40, color: '#3b4c65' },
+                        { from: 41, to: 60, color: '#526d82' }
+                    ]
+                },
+                stroke: {
+                    width: 1,
+                    color: '#dde6ed', // Match the stroke color with the background color
+                    opacity: 0 // Ensure the stroke is fully transparent
+                }
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            style: {
+                fontSize: '12px',
+                fontFamily: 'Sf Pro Display, sans-serif',
+                colors: ['#ffffff'] // Set labels to white
+            },
+            formatter: function (val, opts) {
+                return `${opts.w.config.series[opts.seriesIndex].data[opts.dataPointIndex].y}%`;
+            },
+            background: {
+                enabled: false
+            }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 300
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
     };
-  }, []);
 
-  return (
-    <canvas ref={chartRef} style={{ height: '200px' }}></canvas>
-  );
+    const series = [
+        {
+            name: 'Főételek',
+            data: [
+                { x: 'Subcategory 1', y: 20 },
+                { x: 'Subcategory 2', y: 25 },
+                { x: 'Subcategory 3', y: 15 }
+            ]
+        },
+        {
+            name: 'Levesek',
+            data: [
+                { x: 'Subcategory 1', y: 10 },
+                { x: 'Subcategory 2', y: 10 },
+                { x: 'Subcategory 3', y: 10 }
+            ]
+        },
+        {
+            name: 'Italok',
+            data: [
+                { x: 'Subcategory 1', y: 5 },
+                { x: 'Subcategory 2', y: 3 },
+                { x: 'Subcategory 3', y: 2 }
+            ]
+        }
+    ];
+
+    return (
+        <Chart options={options} series={series} type="treemap" height="247" />
+    );
 };
 
 export default TreemapChart;

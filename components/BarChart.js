@@ -1,17 +1,26 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
-const LineChart = () => {
+const BarChart = () => {
   const chartOptions = {
     chart: {
-      type: 'line',
+      type: 'bar',
       height: 200,
       toolbar: {
         show: false, // Hide the menu
       },
     },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        barHeight: '80%', // Make bars wider
+      },
+    },
     xaxis: {
       categories: ['Január', 'Február', 'Március', 'Április', 'Május', 'Június'],
+      min: 1,
+      max: 5,
+      tickAmount: 4, // Number of ticks on x-axis
       labels: {
         style: {
           colors: '#526d82', // x-axis text color
@@ -23,12 +32,8 @@ const LineChart = () => {
       axisTicks: {
         show: false,
       },
-      grid: {
-        show: false, // Hide x-axis gridlines
-      },
     },
     yaxis: {
-      min: 0, // Ensure the y-axis begins at zero
       labels: {
         style: {
           colors: '#526d82', // y-axis text color
@@ -40,39 +45,38 @@ const LineChart = () => {
       axisTicks: {
         show: false,
       },
-      grid: {
-        borderColor: '#526d82', // Horizontal gridline color
-      },
     },
-    stroke: {
-      curve: 'straight', // Make the line straight
+    grid: {
+      show: false, // Hide gridlines
     },
-    colors: ['#27374d'], // Line color
+    colors: ['#27374d'], // Bar color
     title: {
-      text: 'Havi Bevételek',
+      text: 'Havi Vásárlói Értékelések',
       align: 'left',
       style: {
         fontSize: '14px',
         color: '#526d82',
         fontFamily: 'Sf Pro Display, sans-serif',
-        fontWeight: 'bold'  // Title font size
+        fontWeight: 'bold'  // Smaller title font size
       },
+      margin: 0,
+      padding: 0,
     },
-    legend: {
-      show: false,
+    dataLabels: {
+      enabled: false // Disable data labels in the middle of bars
     },
   };
 
   const chartSeries = [
     {
-      name: 'Bevétel',
-      data: [678000, 590000, 800000, 810000, 560000, 550000], // Revenue data
+      name: 'Értékelés',
+      data: [4, 3.2, 4.3, 3.8, 4.4, 4.6], // Example ratings
     },
   ];
 
   return (
-      <Chart options={chartOptions} series={chartSeries} type="line" height='160' />
+    <Chart options={chartOptions} series={chartSeries} type="bar" height='180' />
   );
 };
 
-export default LineChart;
+export default BarChart;
