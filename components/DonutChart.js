@@ -12,8 +12,8 @@ const data = {
     datasets: [
         {
             data: [60, 30, 10],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            backgroundColor: ['#27374d', '#3b4c65', '#526d82'],
+            hoverBackgroundColor: ['#27374d', '#3b4c65', '#526d82'],
             borderColor: 'transparent',
         }
     ]
@@ -37,7 +37,11 @@ const options = {
 };
 
 const DonutChart = () => {
-    return <Doughnut data={data} options={options} />;
+    return (
+        <div style={{ width: '220px', height: '110px' }}>
+            <Doughnut data={data} options={options} />
+        </div>
+    );
 };
 
 export default DonutChart;

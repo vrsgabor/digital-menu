@@ -1,77 +1,74 @@
 .dashboardWrapper {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    margin-top: 2em;
-    }
-    
-    .dashKpi { grid-area: 1 / 1 / 3 / 2;
-    padding: 1em;
-    }
-    .dashLine { grid-area: 3 / 1 / 4 / 3;
-        padding: 1em;
-    }
-    .dashBar { grid-area: 1 / 2 / 3 / 3;
-        padding: 1em;
-    }
-    .dashDonut { grid-area: 2 / 1 / 3 / 2;
-        padding: 1em;
-    }
-
-    .dashboardBg{
-    padding: 1em;
-    border-radius: .8em;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    }
-
-    .donutChartWrapper{
-        width: 30%;
-    }
-
-    .KpiCard{
-        display: flex;
-        flex-direction: column;
-        padding: 2em;
-        text-align: center;
-        align-items: center;
-    }
-
-    .dashboardBgKpi{
-        padding: 0em;
-        border-radius: .8em;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-left: 3em;
-        padding-right: 3em;
-        text-align: center;
-        }
-
-        .KpiCardValue{
-            color: #27374d;
-            margin-top: 20px;
-            margin-bottom: 0em;
-            font-family: Sf Pro Display, sans-serif;
-            font-size: 2em;
-            font-weight: 700;
-            line-height: 1em;
-        }
-        
-    .KpiCardTitle{
-        color: #27374d;
-        font-family: Sf Pro Display, sans-serif;
-        font-size: 1em;
-        font-weight: 500;
-        line-height: 1em;
-        text-align: center;
-    }
-
-    .dashsecond{
-        padding: 1em;
-    border-radius: .8em;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     display: flex;
-    }
+    flex-direction: column;
+    padding: 2em;
+}
+
+.topSection{
+    display: flex;
+}
+
+.leftColumn{
+    width: 66%;
+}
+
+.dashboardKpi{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-radius: .8em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.KpiCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.KpiCardValue {
+    color: #27374d;
+    margin-bottom: 0em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 0.5em;
+}
+
+.KpiCardTitle {
+    color: #27374d;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    text-align: center;
+}
+
+.dashDonut{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-radius: .8em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.dashBar{
+    margin-left: 2em;
+    margin-bottom: 2em;
+    width: 33%;
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-radius: .8em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.dashLine{
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-radius: .8em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}

@@ -1,4 +1,3 @@
-// components/TreemapChart.js
 'use client'; // Add this line at the top
 
 import React, { useEffect, useRef } from 'react';
@@ -11,6 +10,46 @@ const TreemapChart = () => {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
 
+  const main = ['Main Courses', 'Soups', 'Drinks'];
+
+  const sub = [
+    ['Pizza', 'Pasta', 'Steak'],
+    ['Chicken Soup', 'Tomato Soup', 'Minestrone'],
+    ['Water', 'Soda', 'Juice']
+  ];
+
+  const values = [
+    [20, 20, 20],  // Values for Main Courses
+    [10, 10, 10],  // Values for Soups
+    [3, 3, 4]      // Values for Drinks
+  ];
+
+  const baseColor = '#27374d';
+
+  const generateShades = (color, numberOfShades) => {
+    const shades = [];
+    for (let i = 0; i < numberOfShades; i++) {
+      const shade = shadeColor(color, i * (100 / numberOfShades));
+      shades.push(shade);
+    }
+    return shades;
+  };
+
+  const shadeColor = (color, percent) => {
+    const num = parseInt(color.slice(1), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    return `#${(0x1000000 + (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 + (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 + (B < 255 ? (B < 1 ? 0 : B) : 255)).toString(16).slice(1).toUpperCase()}`;
+  };
+
+  const colors = [
+    generateShades(baseColor, 3),
+    generateShades(baseColor, 3),
+    generateShades(baseColor, 3)
+  ];
+
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
 
@@ -19,20 +58,18 @@ const TreemapChart = () => {
       chartInstanceRef.current.destroy();
     }
 
-    const data = [
-      { category: 'Main Courses', label: 'Main Courses', value: 60, color: '#FF6384' },
-      { category: 'Main Courses', label: 'Pizza', value: 20, color: '#FF6384' },
-      { category: 'Main Courses', label: 'Pasta', value: 20, color: '#FF6384' },
-      { category: 'Main Courses', label: 'Steak', value: 20, color: '#FF6384' },
-      { category: 'Soups', label: 'Soups', value: 30, color: '#FF9F40' },
-      { category: 'Soups', label: 'Chicken Soup', value: 10, color: '#FF9F40' },
-      { category: 'Soups', label: 'Tomato Soup', value: 10, color: '#FF9F40' },
-      { category: 'Soups', label: 'Minestrone', value: 10, color: '#FF9F40' },
-      { category: 'Drinks', label: 'Drinks', value: 10, color: '#36A2EB' },
-      { category: 'Drinks', label: 'Water', value: 3, color: '#36A2EB' },
-      { category: 'Drinks', label: 'Soda', value: 3, color: '#36A2EB' },
-      { category: 'Drinks', label: 'Juice', value: 4, color: '#36A2EB' }
-    ];
+    const data = [];
+
+    // Convert the array structure to the required format for the treemap
+    main.forEach((category, i) => {
+      // Add the main category with the total value of its subcategories
+      data.push({ category, label: category, value: values[i].reduce((a, b) => a + b, 0), color: colors[i][0] });
+
+      // Add each subcategory
+      sub[i].forEach((label, j) => {
+        data.push({ category, label, value: values[i][j], color: colors[i][j] });
+      });
+    });
 
     chartInstanceRef.current = new Chart(ctx, {
       type: 'treemap',
@@ -55,7 +92,7 @@ const TreemapChart = () => {
             align: 'center',
             color: 'white',
             font: {
-              size: 14,
+              size: 10, // Smaller text size
               weight: 'bold'
             }
           }
@@ -67,11 +104,7 @@ const TreemapChart = () => {
             display: false
           },
           tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return `${tooltipItem.raw.label}: ${tooltipItem.raw.value}%`;
-              }
-            }
+            enabled: false
           }
         },
         responsive: true,
@@ -88,7 +121,7 @@ const TreemapChart = () => {
   }, []);
 
   return (
-    <canvas ref={chartRef} style={{ width: '100%', height: '400px' }}></canvas>
+    <canvas ref={chartRef} style={{ height: '200px' }}></canvas>
   );
 };
 
