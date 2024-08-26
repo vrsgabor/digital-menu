@@ -4,14 +4,19 @@ import LeftNav from '../../components/LeftNav';
 import Header from '../../components/HeaderEtlap';
 import ListItems from '../../components/ListItems';
 import SaveButton from '../../components/SaveButton';
+import Modal from '../../components/Modal';
 const Etlap = () => (
-  <div className="nav-wrapper">
+  <div className="whole-page-wrapper">
+      <Modal />
+      <div className="nav-wrapper">
         <LeftNav/>
-    <div className="page-wrapper-etlap">
-      <Header/>
-      <ListItems/>
-      <SaveButton/>
-    </div>
+      </div>
+      <div className="page-wrapper-etlap">
+        <Header/>
+        <ListItems/>
+        <SaveButton/>
+      </div>
+      
   </div>
   );
   
