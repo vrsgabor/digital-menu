@@ -109,15 +109,6 @@
     float: right;
   }
   
-  .listItemRight {
-    border-radius: .8em;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1.5em;
-    padding: 1.6em;
-    display: flex;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-  }
   
   .listItemText {
     color: #526d82;
