@@ -43,3 +43,10 @@ a {
     overflow: hidden;
     max-height: 100vh;
 }
+
+.account-content-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3em;
+}

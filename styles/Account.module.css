@@ -1,0 +1,34 @@
+.contentWrapper{
+    width: 50%;
+    z-index: 1;
+    border-radius: .7em;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+}
+
+.inputFieldsWrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+}
+
+.inputFields{
+    padding: 1em;
+    margin-bottom: 1.2em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1.15em;
+    font-weight: 400;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    background-color: #dde6ed;
+    border-radius: .8em;
+    color: #526d82;
+}
+
+.inputFields:focus{
+    outline: none;
+  }
+
+.inputFields::placeholder{
+    color: #526d82de;
+}
