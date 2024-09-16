@@ -24,7 +24,39 @@ const AccountContent = () => {
 
   return (
     <div className={styles.contentWrapper}>
+      <div className={styles.reastaurantInfoWrapper}>
+        <h2 className={styles.subTitle}>
+          Étterem adatai
+        </h2>
+        <input
+          type="text"
+          name="restaurantName"
+          placeholder="Név"
+          className={styles.inputFields}
+        />
+        <input
+          type="text"
+          name="restaurantAdress"
+          placeholder="Cím"
+          className={styles.inputFields}
+        />
+        <input
+          type="text"
+          name="restaurantEmail"
+          placeholder="Email"
+          className={styles.inputFields}
+        />
+        <input
+          type="text"
+          name="restaurantTel"
+          placeholder="Tel"
+          className={styles.inputFields}
+        />
+      </div>
       <div className={styles.inputFieldsWrapper}>
+      <h2 className={styles.subTitle}>
+          Jelszó megváltoztatása
+        </h2>
         <input
           type="text"
           name="oldPassword"
@@ -51,6 +83,7 @@ const AccountContent = () => {
         />
       </div>
     </div>
+    
   );
 };
 

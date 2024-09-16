@@ -6,21 +6,21 @@ export async function POST(req: Request) {
   const { username, password } = await req.json();
 
   if (!username || !password) {
-    return NextResponse.json({ message: 'Username and password are required.' }, { status: 400 });
+    return NextResponse.json({ message: 'Mezők kitöltése kötelező!' }, { status: 400 });
   }
 
   const user = await findUser(username);
 
   if (!user) {
     console.log('Login failed: User not found for username:', username);
-    return NextResponse.json({ message: 'Invalid credentials. User not found.' }, { status: 401 });
+    return NextResponse.json({ message: 'Nem található a megadott adatokkal felhasználó!' }, { status: 401 });
   }
 
   const isValidPassword = await validatePassword(user, password);
 
   if (!isValidPassword) {
     console.log('Login failed: Incorrect password for user:', username);
-    return NextResponse.json({ message: 'Invalid credentials. Wrong password.' }, { status: 401 });
+    return NextResponse.json({ message: 'Helytelen jelszó. Próbálja újra!' }, { status: 401 });
   }
 
   console.log('Login successful for user:', user.username);
