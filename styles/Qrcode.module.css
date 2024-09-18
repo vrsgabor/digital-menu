@@ -3,7 +3,7 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 1.1em 1.92em;
   }
@@ -27,6 +27,7 @@
   .leftColumn {
     display: flex;
     flex-direction: column;
+    align-items: baseline;
     width: 45%;
   }
   
@@ -42,7 +43,7 @@
     padding: 0.5em 1em;
     border-radius: 5px;
     background-color: #526d82;
-    color: white;
+    color: #dde6ed;
     font-size: 1em;
     cursor: pointer;
     border: none;
@@ -52,3 +53,81 @@
     background-color: #435a70;
   }
   
+  .uploadLabel {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1em;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #526d82;
+    color: #dde6ed;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    width: 26%;
+  }
+  
+  .uploadLabel:hover {
+    background-color: #435a70;
+  }
+  
+  .uploadIcon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .fileInput {
+    display: none;
+  }
+
+  .buttonGroup {
+    display: flex;
+    gap: 1em;
+  }
+  
+  .colorPickerWrapper {
+    position: relative;
+    display: flex;
+    gap: 1em;
+  }
+  
+  .colorSquare {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 6px;
+
+  }
+  
+  .colorPicker {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0; /* Align to the right side of the square */
+    transform: translate(100%, -100%); /* Shift it up and to the right */
+  }
+  
+  .hexInput{
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1em;
+    padding: 0em;
+    padding-left: 0.5em;
+    line-height: normal;
+    height: 40px;
+    border: none;
+    width: 65%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    background-color: white;
+    color: #526d82;
+    border-radius: 6px;
+  }
+  .hexInput:focus{
+    outline: none;
+  }
+
+  .subTitle{
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1.3em;
+    color: #526d82;
+  }

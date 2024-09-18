@@ -3,7 +3,7 @@ import '../../styles/global.css';
 import LeftNav from '../../components/LeftNav';
 import HeaderQrcode from '../../components/HeaderQrcode';
 import SaveButton from '@/components/SaveButton';
-import QrcodeContent from '@/components/QrCodeContent';
+import QrCodeComponent from '@/components/QrCodeComponent';
 
 
 
@@ -14,7 +14,7 @@ const Qrcode = () => (
             <HeaderQrcode/>
             <div className='account-content-wrapper'>
             </div>
-            <QrcodeContent />    
+            <QrCodeComponent />    
             <SaveButton />
     </div>
   </div>
