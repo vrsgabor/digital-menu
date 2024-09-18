@@ -1,3 +1,4 @@
+"use client"
 import { useRouter } from 'next/navigation'; // Use the router to redirect after logout
 import styles from '../styles/Etlap.module.css';
 
