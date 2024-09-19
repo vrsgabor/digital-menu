@@ -1,97 +1,166 @@
-"use client";
-
-import { useState, useRef, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // Importing uuid for unique ids
+"use client"
+import React, { useState } from 'react';
 import styles from '../styles/Etlap.module.css';
+import { AiOutlineUpload } from 'react-icons/ai';
 
 const ListItems = () => {
-  const initialId = uuidv4();
-  const [leftItems, setLeftItems] = useState([{ id: initialId, text: 'Új kategória' }]);
-  const [selectedCategory, setSelectedCategory] = useState(initialId);
-  const leftInputRefs = useRef([]);
+  const [tabs, setTabs] = useState([{ name: 'Új kategória', editable: false }]);
+  const [activeTab, setActiveTab] = useState(0);
+  const [meals, setMeals] = useState({ 0: [] });
+  const [isEditingTab, setIsEditingTab] = useState(null);
 
-  const handleLeftInputChange = (id, value) => {
-    const updatedLeftItems = leftItems.map(item => item.id === id ? { ...item, text: value } : item);
-    setLeftItems(updatedLeftItems);
+  const handleTabChange = (index) => {
+    setActiveTab(index);
   };
 
+  const handleTabNameChange = (index, newName) => {
+    const updatedTabs = [...tabs];
+    updatedTabs[index].name = newName;
+    setTabs(updatedTabs);
+  };
 
-  const handleLeftBlur = (id, value) => {
-    if (value.trim() === '' && leftItems.length > 1) {
-      const newItems = leftItems.filter(item => item.id !== id);
-      const newRightItems = { ...rightItems };
-      delete newRightItems[id];
-      setLeftItems(newItems);
-      if (selectedCategory === id) {
-        setSelectedCategory(newItems[0].id);
-      }
+  const toggleEditTab = (index) => {
+    setIsEditingTab(index);
+  };
+
+  const finishEditingTab = () => {
+    setIsEditingTab(null);
+  };
+
+  const addTab = () => {
+    const newTabIndex = tabs.length;
+    setTabs([...tabs, { name: 'Új kategória', editable: false }]);
+    setMeals({ ...meals, [newTabIndex]: [] });
+    setActiveTab(newTabIndex);
+  };
+
+  const deleteTab = (index) => {
+    if (tabs.length > 1) {
+      const updatedTabs = tabs.filter((_, i) => i !== index);
+      const updatedMeals = { ...meals };
+      delete updatedMeals[index];
+
+      const newActiveTab = activeTab === index ? 0 : activeTab > index ? activeTab - 1 : activeTab;
+      setActiveTab(newActiveTab);
+      setTabs(updatedTabs);
+      setMeals(updatedMeals);
+    } else {
+      alert("You can't delete the last remaining tab.");
     }
   };
 
-
-  const addLeftItem = () => {
-    const newId = uuidv4();
-    const newItem = { id: newId, text: 'Új kategória' };
-    setLeftItems([...leftItems, newItem]);
-    setSelectedCategory(newId);
+  const removeMeal = (tabIndex, mealIndex) => {
+    const updatedMeals = { ...meals };
+    updatedMeals[tabIndex].splice(mealIndex, 1);
+    setMeals(updatedMeals);
   };
 
+  const handleMealChange = (tabIndex, mealIndex, field, value) => {
+    const updatedMeals = { ...meals };
+    updatedMeals[tabIndex][mealIndex][field] = value;
+    setMeals(updatedMeals);
+  };
 
-  useEffect(() => {
-    if (leftInputRefs.current.length > 0) {
-      const lastInput = leftInputRefs.current[leftInputRefs.current.length - 1];
-      if (lastInput && lastInput === document.activeElement) {
-        lastInput.focus();
-      }
+  const addMeal = (tabIndex) => {
+    const updatedMeals = { ...meals };
+  
+    // Initialize meals[tabIndex] if it's undefined
+    if (!updatedMeals[tabIndex]) {
+      updatedMeals[tabIndex] = [];
     }
-  }, [leftItems]);
-
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId);
+  
+    updatedMeals[tabIndex].push({
+      name: '',
+      description: '',
+      allergens: '',
+      price: '',
+      photo: null
+    });
+  
+    setMeals(updatedMeals);
   };
+  
+
+  const renderMealForm = (tabIndex) => (
+    <div>
+      {(meals[tabIndex] || []).map((meal, mealIndex) => (
+        <div key={mealIndex} className={styles.mealForm}>
+          <div className={styles.formWrapper}>
+          <input
+            type="text"
+            placeholder="Név"
+            value={meal.name}
+            onChange={(e) => handleMealChange(tabIndex, mealIndex, 'name', e.target.value)}
+          />
+          <input
+            placeholder="Leírás"
+            value={meal.description}
+            onChange={(e) => handleMealChange(tabIndex, mealIndex, 'description', e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Allergének"
+            value={meal.allergens}
+            onChange={(e) => handleMealChange(tabIndex, mealIndex, 'allergens', e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Ár"
+            value={meal.price}
+            onChange={(e) => handleMealChange(tabIndex, mealIndex, 'price', e.target.value)}
+          />
+          <button onClick={() => removeMeal(tabIndex, mealIndex)} className={styles.removeButton}>X</button>
+          </div>
+          <div className={styles.fileUploader}>
+  <label htmlFor={`file-upload-${mealIndex}`} className={styles.fileUploadButton}>
+  <AiOutlineUpload className={styles.uploadIcon} />    
+    Kép feltöltése
+  </label>
+  <input
+    id={`file-upload-${mealIndex}`}
+    type="file"
+    onChange={(e) => handleMealChange(tabIndex, mealIndex, 'photo', e.target.files[0])}
+    className={styles.fileInput}
+  />
+</div>
+
+
+        </div>
+      ))}
+      <button onClick={() => addMeal(tabIndex)} className={styles.addButton}>Új tétel hozzáadása</button>
+    </div>
+  );
 
   return (
-    <div className={styles.listWrapper}>
-      <div className={styles.listItems}>
-        {leftItems.map((item, index) => (
-          <div key={item.id} className={styles.listItemLeftWrapper}>
-            <div>
-              <img src="/images/grab-icon.svg" alt="grab" className={styles.grabIcon} />
+    <div className={styles.contentWrapper}>
+      <div className={styles.tabContainer}>
+        {tabs.map((tab, index) => (
+          <div key={index} className={styles.tabItem}>
+            {isEditingTab === index ? (
               <input
                 type="text"
-                value={item.text}
-                onChange={(e) => handleLeftInputChange(item.id, e.target.value)}
-                onBlur={(e) => handleLeftBlur(item.id, e.target.value)}
-                className={styles.listItemText}
-                placeholder="Új kategória"
-                ref={(el) => (leftInputRefs.current[index] = el)}
+                value={tab.name}
+                onChange={(e) => handleTabNameChange(index, e.target.value)}
+                onBlur={finishEditingTab}
+                onKeyDown={(e) => e.key === 'Enter' && finishEditingTab()}
+                className={styles.tabInput}
+                autoFocus
               />
-            </div>
-            <img
-              src="/images/right-arrow.svg"
-              alt="arrow"
-              className={styles.rightArrow}
-              onClick={() => handleCategoryClick(item.id)}
-              style={{ cursor: 'pointer' }} // Make cursor a pointer
-            />
+            ) : (
+              <div className={`${styles.tabButton} ${activeTab === index ? styles.activeTab : ''}`} onClick={() => handleTabChange(index)}>
+                <span>{tab.name}</span>
+                <div className={styles.iconContainer}>
+                  <span onClick={(e) => { e.stopPropagation(); toggleEditTab(index); }} className={styles.icon}>✏️</span>
+                  <span onClick={(e) => { e.stopPropagation(); deleteTab(index); }} className={styles.icon}>🗑️</span>
+                </div>
+              </div>
+            )}
           </div>
         ))}
-        <div className={styles.newCategoryWrapper}>
-          <img src="/images/new-category-line.svg" alt="new-category" className={styles.newCategoryLine} />
-          <a href="#" className={styles.newCategoryTextWrapper} onClick={(e) => { e.preventDefault(); addLeftItem(); }}>
-            <img src="/images/plus-icon.svg" alt="plus" className={styles.plusIcon} />
-            <div className={styles.newCategoryText}>Új kategória hozzáadása</div>
-          </a>
-        </div>
+        <button onClick={addTab} className={styles.addTabButton}>+ Új kategória</button>
       </div>
-      <div className={styles.listItems}>
-        <div className={styles.newCategoryWrapper}>
-          <img src="/images/new-category-line.svg" alt="new-category" className={styles.newCategoryLine} />
-          <a href="#" className={styles.newCategoryTextWrapper}>
-            <img src="/images/plus-icon.svg" alt="plus" className={styles.plusIcon} />
-            <div className={styles.newCategoryText}>Új tétel hozzáadása</div>
-          </a>
-        </div>
+      <div className={styles.mealContent}>
+        {renderMealForm(activeTab)}
       </div>
     </div>
   );

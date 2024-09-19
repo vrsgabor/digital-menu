@@ -71,115 +71,6 @@
   }
 
   
-  .contentWrapper {
-    padding-bottom: 2em;
-  }
-  
-  .listWrapper {
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-left: 1.5em;
-    margin-right: 1.5em;
-    display: flex;
-  }
-  
-  .listItems {
-    z-index: 1;
-    border-radius: .7em;
-    width: 42%;
-    padding: 4em 1.92em 1.92em 3.21em;
-    position: relative;
-    top: -16px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
-  }
-  
-  
-  .listItemLeftWrapper {
-    align-items: center;
-    display: flex;
-    border-radius: .8em;
-    margin-bottom: 1.5em;
-    padding: 1.6em;
-    display: flex;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    justify-content: space-between;
-  }
-
-  .rightArrow{
-    float: right;
-  }
-  
-  
-  .listItemText {
-    color: #526d82;
-    font-family: Sf Pro Display, sans-serif;
-    font-size: 1.3em;
-    font-weight: 400;
-    line-height: 1em;
-    border:none;
-    background-color: transparent;
-    caret-color: #526d82;
-  }
-
-  .listItemText::placeholder {
-    color: #526d82;
-    opacity: 1; 
-  }
-  
-  .listItemText:focus::placeholder {
-    color: transparent; 
-  }
-  
-  .listItemText:focus {
-    outline: none;
-    border-color: #526d82;
-  }
-
-  .grabLinkBlock {
-    margin-right: 0;
-  }
-  
-  .newCategoryWrapper {
-    margin-top: 3.85em;
-    padding-bottom: .8em;
-  }
-  
-  .newCategoryTextWrapper {
-    align-items: center;
-    padding-left: 2em;
-    padding-right: 2em;
-    display: flex;
-  }
-  
-  .plusIcon {
-    margin-right: 1em;
-  }
-  
-  .newCategoryText {
-    color: #526d82;
-    font-family: Sf Pro Display, sans-serif;
-    font-size: 1.2em;
-    font-weight: 300;
-    line-height: 1em;
-  }
-  
-  .grabIcon {
-    margin-right: .96em;
-  }
-  
-  .grabIcon.smaller {
-    width: 16px;
-  }
-  
-  .listItemTextLighter {
-    color: #526d82;
-    font-family: Sf Pro Display, sans-serif;
-    font-size: 1.4em;
-    font-weight: 300;
-    line-height: 1em;
-  }
-  
   .saveBtn {
     float: right;
     background-image: url('/images/button-hover.svg');
@@ -212,44 +103,92 @@
     font-size: 1.1em;
     font-weight: 400;
   }
-  
-  .paragraphEtlap.darkBg {
-    text-align: left;
-  }
-  
-  .paragraphEtlap.paragraphSmall {
-    width: 37%;
-  }
-  
 
-  .modalWrapper{
-    position: fixed;
-    z-index: 3;
-    height: 100vh;
-    background-color: #27374d83;
-    width: 100vw;
+  .contentWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.1em 1.92em;
+    margin-top: 2em;
+    border-radius: .7em;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+  }
+  
+  .tabContainer {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    border-right: 3px solid #27374d;
+  }
+  
+  .tabItem {
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin-bottom: 0; /* Remove margin between tab items */
   }
-
-  .modal{
-    min-width: 350px;
-    padding: 3em;
-    background-color: #dde6ed;
-    border-radius: 1em;
-
+  
+  .tabButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    border: none;
+    background-color: #526d82;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: left;
+    margin-bottom: 0;
+    color: #dde6ed; /* Remove margin below buttons */
   }
-  .modalContent{
+  
+  .tabButton:hover {
+    background-color: #526d82b3;
+    color: #27374d;
+  }
+  
+  .activeTab {
+    background-color: #27374d;
+  }
+  
+  .iconContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    cursor: pointer;
+    margin-left: 0.5em;
+  }
+  
+  .icon:hover {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  .tabInput {
+    flex-grow: 1;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .mealContent {
+    flex-grow: 1;
+    margin-left: 2em;
+  }
+  
+  .mealForm {
+    margin-bottom: 1em;
     display: flex;
     flex-direction: column;
   }
-
-  .modalInput{
-    padding: 1em;
+  
+  .mealForm input{
+    padding: 0.8em;
     margin-bottom: 1.2em;
     font-family: Sf Pro Display, sans-serif;
-    font-size: 1.15em;
+    font-size: 1em;
     font-weight: 400;
     border: none;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
@@ -258,70 +197,136 @@
     color: #526d82;
   }
 
-  .modalInput:focus{
+  .mealForm input:focus{
     outline: none;
   }
-
-  .modalInput::placeholder, .modalTextArea::placeholder{
+  .mealForm input::placeholder{
     color: #526d82de;
-  }
-
-  .modalInput:focus::placeholder, .modalTextArea:focus::placeholder{
-    opacity: 0;
-  }
-
-  .modalTextArea{
-    padding: 1em;
-    padding-bottom: 3em;
-    margin-bottom: 1.2em;
-    font-family: Sf Pro Display, sans-serif;
-    font-size: 1.15em;
-    font-weight: 500;
+}
+  
+  .mealForm input[type="file"] {
     border: none;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    background-color: #dde6ed;
-    border-radius: .8em;
-    color: #526d82;
   }
-
-  .modalTextArea:focus{
-    outline: none;
-  }
-
-  .modalButton{
-    padding: 1em 2em;
+  
+  .addButton {
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
+    margin-top: 1em;
+    padding: 0.6em 1em;
+    border: none;
     background-color: #526d82;
     color: #dde6ed;
-    border: none;
-    border-radius: 0.8em;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1.1em;
   }
-
-  .modalButton:hover{
-    background-color: #526d82bf;
-  }
-
-  .modalActions{
+  
+  .removeButton {
+    background-color: #dde6ed;
+    border-width: 2px;
+    border-color: #27374d;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
     margin-top: 1em;
+    padding: 0.6em 1em;
+    border: none;
+    background-color: #526d82;
+    color: #dde6ed;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .addButton:hover {
+    background-color: #526d82d1;
+  }
+  
+  .removeButton:hover {
+    background-color: #526d82d1;
+  }
+  
+  .addTabButton {
+    font-family: Sf Pro Display, sans-serif;
+    font-weight: 600;
+    margin-top: 0; /* Remove margin above the button */
+    padding: 0.5em;
+    border: none;
+    background-color: #526d82;
+    color: #dde6ed;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+  }
+  
+  .addTabButton:hover {
+    background-color: #526d82d1;
+  }
+  
+
+  .formWrapper{
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+    gap: 1em;
   }
 
-.modalFileInput::-webkit-file-upload-button{
-  padding: 1em;
-  margin-bottom: 1.2em;
-  font-family: Sf Pro Display, sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-  border: none;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-  background-color:#526d82;
-  border-radius: .8em;
-  color:#dde6ed;
-  cursor: pointer;
+  .uploadLabel {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1em;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #526d82;
+    color: #dde6ed;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    width: 26%;
+  }
+  
+  .uploadLabel:hover {
+    background-color: #435a70;
+  }
+  
+  .uploadIcon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  /* Wrapper for file uploader */
+.fileUploader {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.modalFileInput::-webkit-file-upload-button:hover{
-  background-color: #526d82bf;
+/* Custom upload button styling */
+.fileUploadButton {
+  background-color: #526d82;
+  color: #dde6ed;
+  padding: 0.7em 1.5em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.1s ease;
+  border: none;
+}
+
+/* Hover effect for the upload button */
+.fileUploadButton:hover {
+  background-color: #526d82d1;
+}
+
+/* Icon styling */
+.uploadIcon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px; /* Space between icon and text */
+  stroke: white;
+}
+
+/* Hide the default file input */
+.fileInput {
+  display: none;
 }
