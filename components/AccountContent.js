@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { IoIosSave } from "react-icons/io";
 import styles from '../styles/Account.module.css';
 
 const AccountContent = () => {
@@ -80,6 +81,7 @@ const AccountContent = () => {
           className={styles.inputFields}
           pattern="\+36/[0-9]{2}-[0-9]{3}-[0-9]{4}"
         />
+        <button className={styles.saveBtn}><IoIosSave className={styles.icon}/>Mentés</button>
       </div>
       <h2 className={styles.subTitle}>Jelszó megváltoztatása</h2>
       <div className={styles.inputFieldsWrapper}>
@@ -107,6 +109,7 @@ const AccountContent = () => {
           value={maskedPasswords.confirmPassword}
           onChange={handleChange}
         />
+        <button className={styles.saveBtn}><IoIosSave className={styles.icon}/>Mentés</button>
       </div>
     </div>
   );

@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import styles from '../styles/Etlap.module.css';
 import { AiOutlineUpload } from 'react-icons/ai';
+import { MdEdit } from "react-icons/md";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
+import { IoMdRemoveCircle } from "react-icons/io";
 
 const ListItems = () => {
   const [tabs, setTabs] = useState([{ name: 'Új kategória', editable: false }]);
@@ -109,7 +112,7 @@ const ListItems = () => {
             value={meal.price}
             onChange={(e) => handleMealChange(tabIndex, mealIndex, 'price', e.target.value)}
           />
-          <button onClick={() => removeMeal(tabIndex, mealIndex)} className={styles.removeButton}>X</button>
+          <button onClick={() => removeMeal(tabIndex, mealIndex)} className={styles.removeButton}><IoMdRemoveCircle /></button>
           </div>
           <div className={styles.fileUploader}>
   <label htmlFor={`file-upload-${mealIndex}`} className={styles.fileUploadButton}>
@@ -133,7 +136,9 @@ const ListItems = () => {
 
   return (
     <div className={styles.contentWrapper}>
+      <div className={styles.itemsContainer}>
       <div className={styles.tabContainer}>
+        <div className={styles.tabItemContainer}>
         {tabs.map((tab, index) => (
           <div key={index} className={styles.tabItem}>
             {isEditingTab === index ? (
@@ -143,25 +148,29 @@ const ListItems = () => {
                 onChange={(e) => handleTabNameChange(index, e.target.value)}
                 onBlur={finishEditingTab}
                 onKeyDown={(e) => e.key === 'Enter' && finishEditingTab()}
-                className={styles.tabInput}
+                className={`${styles.tabInput} ${styles.tabButton}`}
                 autoFocus
               />
             ) : (
               <div className={`${styles.tabButton} ${activeTab === index ? styles.activeTab : ''}`} onClick={() => handleTabChange(index)}>
                 <span>{tab.name}</span>
                 <div className={styles.iconContainer}>
-                  <span onClick={(e) => { e.stopPropagation(); toggleEditTab(index); }} className={styles.icon}>✏️</span>
-                  <span onClick={(e) => { e.stopPropagation(); deleteTab(index); }} className={styles.icon}>🗑️</span>
+                  <MdEdit onClick={(e) => { e.stopPropagation(); toggleEditTab(index); }} className={styles.icon}/>
+                  <IoMdRemoveCircleOutline onClick={(e) => { e.stopPropagation(); deleteTab(index); }} className={styles.icon}/>
                 </div>
               </div>
             )}
           </div>
         ))}
+        </div>
+ 
         <button onClick={addTab} className={styles.addTabButton}>+ Új kategória</button>
       </div>
       <div className={styles.mealContent}>
         {renderMealForm(activeTab)}
       </div>
+      </div>
+      
     </div>
   );
 };

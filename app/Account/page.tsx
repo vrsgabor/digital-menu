@@ -13,8 +13,6 @@ const Account = () => (
             <div className='account-content-wrapper'>
             <AccountContent />
             </div>
-
-            <SaveButton />
     </div>
   </div>
   );

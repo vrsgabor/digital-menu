@@ -108,85 +108,105 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1.1em 1.92em;
     margin-top: 2em;
     border-radius: .7em;
     box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+    min-height: 60vh;
+  }
+
+  .itemsContainer{
+    display: flex;
+    overflow: hidden;
   }
   
   .tabContainer {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
-    border-right: 3px solid #27374d;
+    padding-top: 1.92em;
+    padding-bottom: 1.92em; 
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.107);
+
   }
   
   .tabItem {
     display: flex;
     align-items: center;
-    margin-bottom: 0; /* Remove margin between tab items */
+    margin-bottom: 0;
+    margin-right: 1em;
+    width: 150px;
+
   }
   
   .tabButton {
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
     width: 100%;
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
+    padding: 1.1em;
     border: none;
-    background-color: #526d82;
+    background-color: #dde6ed;
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: left;
     margin-bottom: 0;
-    color: #dde6ed; /* Remove margin below buttons */
+    color: #526d82;
+    opacity: 70%;
+    border-radius: 0px 4px 4px 0px;
   }
   
-  .tabButton:hover {
-    background-color: #526d82b3;
-    color: #27374d;
-  }
   
   .activeTab {
-    background-color: #27374d;
+    background-color: #526d82;
+    color: #dde6ed;
+    opacity: 100%;
   }
   
+  .tabInput:focus {
+    outline: none;
+  }
+
   .iconContainer {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center ;
+    gap: 0.5em;
   }
   
-  .icon {
-    cursor: pointer;
-    margin-left: 0.5em;
-  }
   
-  .icon:hover {
-    background-color: #e0e0e0;
-    border-radius: 4px;
-  }
   
   .tabInput {
-    flex-grow: 1;
-    padding: 0.5em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;
+    padding: 1.1em;
+    background-color: #dde6ed;
+    border: none;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
+    color: #526d82;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: background-color 0.3s;
   }
   
   .mealContent {
     flex-grow: 1;
     margin-left: 2em;
+    padding-top: 1.92em;
   }
   
   .mealForm {
-    margin-bottom: 1em;
     display: flex;
     flex-direction: column;
   }
   
   .mealForm input{
     padding: 0.8em;
-    margin-bottom: 1.2em;
     font-family: Sf Pro Display, sans-serif;
     font-size: 1em;
     font-weight: 400;
@@ -212,6 +232,7 @@
     font-family: Sf Pro Display, sans-serif;
     font-size: 1em;
     margin-top: 1em;
+    margin-bottom: 2em;
     padding: 0.6em 1em;
     border: none;
     background-color: #526d82;
@@ -220,50 +241,43 @@
     cursor: pointer;
   }
   
-  .removeButton {
-    background-color: #dde6ed;
-    border-width: 2px;
-    border-color: #27374d;
-    font-family: Sf Pro Display, sans-serif;
-    font-size: 1em;
-    margin-top: 1em;
-    padding: 0.6em 1em;
-    border: none;
-    background-color: #526d82;
-    color: #dde6ed;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+
   
   .addButton:hover {
     background-color: #526d82d1;
   }
   
-  .removeButton:hover {
-    background-color: #526d82d1;
+  .removeButton{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #526d82;;
+    
   }
   
   .addTabButton {
     font-family: Sf Pro Display, sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 0; /* Remove margin above the button */
-    padding: 0.5em;
+    padding: 0.65em;
     border: none;
-    background-color: #526d82;
-    color: #dde6ed;
+    background-color: transparent;
+    color: #526d82;
     cursor: pointer;
     box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+    width: 70%;
+    border-radius: 0 4px 4px 0px;
+
   }
-  
-  .addTabButton:hover {
-    background-color: #526d82d1;
-  }
-  
 
   .formWrapper{
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     width: 100%;
     gap: 1em;
   }
@@ -295,22 +309,24 @@
 .fileUploader {
   display: flex;
   align-items: center;
-  margin-top: 10px;
 }
 
-/* Custom upload button styling */
+
 .fileUploadButton {
+  font-family: 'SF Pro Display', sans-serif;
   background-color: #526d82;
   color: #dde6ed;
-  padding: 0.7em 1.5em;
-  border-radius: 5px;
+  padding: 0.6em 1em;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.9em;
-  font-weight: bold;
+  margin-bottom: 3em;
+  font-weight: 500;
   display: flex;
   align-items: center;
   transition: background-color 0.1s ease;
   border: none;
+  margin-top: 1em;
 }
 
 /* Hover effect for the upload button */
@@ -318,15 +334,16 @@
   background-color: #526d82d1;
 }
 
-/* Icon styling */
+
 .uploadIcon {
   width: 18px;
   height: 18px;
-  margin-right: 8px; /* Space between icon and text */
+  margin-right: 8px;
   stroke: white;
 }
 
-/* Hide the default file input */
 .fileInput {
   display: none;
 }
+
+

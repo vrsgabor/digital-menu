@@ -14,10 +14,32 @@
 
 .restaurantInfoWrapper{
     display: flex;
+    align-items: center;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
     gap: 2em;
     margin-bottom: 2em;
 }
-
+.saveBtn{
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 1.2em;
+    margin-left: -1em;
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    background-color:#526d82; 
+    border-radius: .8em;
+    color: #dde6ed;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
 .inputFieldsWrapper{
     display: flex;
@@ -53,4 +75,8 @@
     font-size: 1.3em;
     font-weight: bold;
     line-height: 1.2em;
+}
+
+.icon{
+    margin-right: 0.5em;
 }
