@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { QRCode } from 'react-qrcode-logo';
-import { HexColorPicker } from 'react-colorful'; // Import HexColorPicker from react-colorful
+import { HexColorPicker } from 'react-colorful';
 import { AiOutlineUpload } from 'react-icons/ai';
 import styles from '../styles/Qrcode.module.css';
 
@@ -12,13 +12,12 @@ const QrCodeComponent = () => {
   const [logo, setLogo] = useState(defaultLogo);
   const [color, setColor] = useState(defaultColor);
   const [qrCodeData, setQrCodeData] = useState(defaultQrCodeData);
-  const [showColorPicker, setShowColorPicker] = useState(false); // State to toggle color picker
-  const [hexInput, setHexInput] = useState(defaultColor); // Separate state for hex input
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const [hexInput, setHexInput] = useState(defaultColor); 
 
-  const pickerRef = useRef(); // Reference to color picker for click detection
-  const fileInputRef = useRef(null); // Reference for file input
+  const pickerRef = useRef(); 
+  const fileInputRef = useRef(null); 
 
-  // Handle logo upload
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
     const img = new Image();
@@ -51,20 +50,20 @@ const QrCodeComponent = () => {
     }
   };
 
-  // Reset QR Code to its default state
+  
   const resetQRCode = () => {
     setLogo(defaultLogo);
     setColor(defaultColor);
     setQrCodeData(defaultQrCodeData);
-    setHexInput(defaultColor); // Reset the hex input as well
+    setHexInput(defaultColor); 
 
-    // Clear file input value
+    
     if (fileInputRef.current) {
-      fileInputRef.current.value = ''; // Reset the file input
+      fileInputRef.current.value = ''; 
     }
   };
 
-  // Handle clicking outside of color picker
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (pickerRef.current && !pickerRef.current.contains(e.target)) {
@@ -77,12 +76,12 @@ const QrCodeComponent = () => {
     };
   }, []);
 
-  // Handle user input in the hex code field
+ 
   const handleHexInputChange = (e) => {
     const newHex = e.target.value;
-    setHexInput(newHex); // Update the input field value
+    setHexInput(newHex); 
 
-    // Validate if it's a valid hex color and update the color state
+
     if (/^#[0-9A-F]{6}$/i.test(newHex)) {
       setColor(newHex);
     }

@@ -1,0 +1,114 @@
+.MenuHeader{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+
+.Title{
+    margin: 0;
+    font-family: Oswald,sans-serif;
+    font-size: 2.3em;
+    line-height: 130%;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #27374d;
+}
+
+.SubTitle{
+    margin: 0;
+    font-family: Oswald,sans-serif;
+    font-size: 1.8em;
+    line-height: 130%;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #27374d;
+}
+
+/* Main dropdown container */
+.upperItems {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5em;
+    position: relative; /* Ensure the dropdown items are positioned relative to this container */
+    width: 100%; /* Inherit the width of the container */
+}
+
+/* Main dropdown div */
+.dropdown {
+    background-color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #526d82;
+    cursor: pointer;
+    width: 30%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    text-align: left;
+    transition: background-color 0.1s ease;
+    position: relative;
+}
+
+/* Dropdown menu */
+.dropdownMenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    position: absolute; /* Ensure the dropdown list is positioned absolutely within the relative parent */
+    top: 100%; /* Position the dropdown list just below the dropdown */
+    left: 35%;
+    width: 30%; /* Match the width of the dropdown */
+    z-index: 10;
+}
+
+/* Dropdown items */
+.dropdownItem {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #526d82;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Hover effect for dropdown items */
+.dropdownItem:hover {
+    background-color: #27374d; /* Change to your desired hover color */
+    color: #dde6ed; /* Change to your desired text color */
+}
+
+/* Title styling */
+.selectedTitle {
+    font-family: Sf Pro Display, sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+    color: #27374d; 
+}
+
+.upperItems{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5em;
+}
+
+.MenuContentWrapper{
+    padding-top: 5em;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.MealsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    padding-top: 5em;
+}
