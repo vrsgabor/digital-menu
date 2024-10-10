@@ -3,7 +3,7 @@ import '../../components/LeftNav';
 import LeftNav from '../../components/LeftNav';
 import Header from '../../components/HeaderEtlap';
 import ListItems from '../../components/ListItems';
-import SaveButton from '../../components/SaveButton';
+
 
 const Etlap = () => (
   <div className="whole-page-wrapper">
@@ -13,7 +13,7 @@ const Etlap = () => (
       <div className="page-wrapper-etlap">
         <Header/>
         <ListItems/>
-        <SaveButton/>
+
       </div>
   </div>
   );

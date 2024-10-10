@@ -12,7 +12,7 @@
 .Title{
     margin: 0;
     font-family: Oswald,sans-serif;
-    font-size: 2.3em;
+    font-size: 2em;
     line-height: 130%;
     font-weight: 700;
     text-transform: uppercase;
@@ -22,25 +22,25 @@
 .SubTitle{
     margin: 0;
     font-family: Oswald,sans-serif;
-    font-size: 1.8em;
+    font-size: 1.5em;
     line-height: 130%;
     font-weight: 500;
     text-transform: uppercase;
     color: #27374d;
 }
 
-/* Main dropdown container */
+
 .upperItems {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 5em;
-    position: relative; /* Ensure the dropdown items are positioned relative to this container */
-    width: 100%; /* Inherit the width of the container */
+    position: relative;
+    width: 100%;
 }
 
-/* Main dropdown div */
+
 .dropdown {
     background-color: #fff;
     border: none;

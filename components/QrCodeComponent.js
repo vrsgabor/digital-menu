@@ -7,7 +7,7 @@ import styles from '../styles/Qrcode.module.css';
 const QrCodeComponent = () => {
   const defaultLogo = null;
   const defaultColor = '#000000';
-  const defaultQrCodeData = 'https://github.com/gcoro/react-qrcode-logo';
+  const defaultQrCodeData = 'http://localhost:3000/Menu';
 
   const [logo, setLogo] = useState(defaultLogo);
   const [color, setColor] = useState(defaultColor);

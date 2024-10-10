@@ -1,46 +1,25 @@
 {
   "meals": [
     {
-      "mealName": "Chicken Paprikash",
-      "description": "A traditional Hungarian dish made with chicken, bell peppers, and paprika sauce.",
-      "price": 2990,
+      "mealName": "Bécsi szelet",
+      "description": "hasáb",
+      "price": "3590",
       "category": "Főételek",
-      "imageURL": "/images/rantott_szelet.jpg"
+      "imageURL": null
     },
     {
-      "mealName": "Goulash Soup",
-      "description": "A hearty soup made with beef, vegetables, and plenty of paprika.",
-      "price": 2490,
+      "mealName": "Gyümölcsleves",
+      "description": "tejszínhabbal",
+      "price": "950",
       "category": "Levesek",
-      "imageURL": "https://example.com/images/goulash_soup.jpg"
+      "imageURL": null
     },
     {
-      "mealName": "Lángos",
-      "description": "Fried dough topped with garlic, sour cream, and grated cheese.",
-      "price": 1500,
-      "category": "Főételek",
-      "imageURL": "https://example.com/images/langos.jpg"
-    },
-    {
-      "mealName": "Mineral Water",
-      "description": "Refreshing mineral water, perfect for any meal.",
-      "price": 500,
-      "category": "Italok",
-      "imageURL": "https://example.com/images/mineral_water.jpg"
-    },
-    {
-      "mealName": "Lemonade",
-      "description": "Fresh lemonade made with lemon juice and sugar.",
-      "price": 800,
-      "category": "Italok",
-      "imageURL": "https://example.com/images/lemonade.jpg"
-    },
-    {
-      "mealName": "Dessert Pancakes",
-      "description": "Delicious pancakes filled with sweet cottage cheese and raisins.",
-      "price": 1800,
+      "mealName": "Sajttorta",
+      "description": "eperkrémmel",
+      "price": "1120",
       "category": "Desszertek",
-      "imageURL": "https://example.com/images/dessert_pancakes.jpg"
+      "imageURL": null
     }
   ]
 }
