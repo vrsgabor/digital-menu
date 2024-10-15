@@ -1,0 +1,117 @@
+.contentWrapper{
+    margin-top: 5em;
+    padding-bottom: 2em;
+    padding-left: 10%;
+    padding-right: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: space-between;
+}
+
+.card{
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 3em;
+    padding-right: 3em;
+    width: 25%;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .25);
+    border-radius: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.cardTitle{
+    color: #27374d;
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 110%;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 0.5em;
+}
+
+.subTitle{
+    
+    color: #526d82;
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 110%;
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    padding-bottom: 2em;
+}
+
+.regButton{
+    font-family: Sf Pro Display, sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1em;
+    cursor: pointer;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    background-color: #27374d;
+    border: none;
+    color: #dde6ed;
+    border: 2px solid #27374d;
+    transition: all 0.15s ease-in-out; 
+}
+
+.regButton:hover{
+    background-color: #dde6ed;
+    color: #27374d;
+    border: 2px solid #27374d;
+}
+
+
+.listItemWrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.listItem{
+    font-family: 'SF Pro Display', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #27374d;
+    margin: 0;
+    font-size: 1em;
+}
+
+.icon{
+    font-family: 'SF Pro Display', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #27374d;
+    margin: 0;
+    font-size: 16px;
+    margin-right: 0.5em;
+}
+.content{
+    margin-bottom: 8em;
+}
+
+.cardContentWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.activeCard {
+    border: 2px solid #27374d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .cardContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

@@ -8,33 +8,58 @@ const QrCodeComponent = () => {
   const defaultLogo = null;
   const defaultColor = '#000000';
   const defaultQrCodeData = 'http://localhost:3000/Menu';
-
+  
   const [logo, setLogo] = useState(defaultLogo);
   const [color, setColor] = useState(defaultColor);
   const [qrCodeData, setQrCodeData] = useState(defaultQrCodeData);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [hexInput, setHexInput] = useState(defaultColor); 
+  const [hexInput, setHexInput] = useState(defaultColor);
+  const [currentPlan, setCurrentPlan] = useState('Alap');
 
   const pickerRef = useRef(); 
-  const fileInputRef = useRef(null); 
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    // Fetch the current plan from the API
+    fetch('/api/Plan')
+      .then((res) => res.json())
+      .then((data) => {
+        setCurrentPlan(data.currentPlan);
+      });
+  }, []);
 
   const handleLogoUpload = (e) => {
-    const file = e.target.files[0];
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
-    img.onload = () => {
-      if (img.width === 205 && img.height === 205) {
-        setLogo(URL.createObjectURL(file));
-      } else {
-        alert('The logo must be exactly 205x205 pixels.');
-      }
-    };
+    if (currentPlan === 'Prémium') {
+      const file = e.target.files[0];
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        if (img.width === 205 && img.height === 205) {
+          setLogo(URL.createObjectURL(file));
+        } else {
+          alert('The logo must be exactly 205x205 pixels.');
+        }
+      };
+    } else {
+      alert('Logó feltöltése csak a Prémium előfizetéssel elérhető.');
+    }
   };
 
-  // Download QR Code
+  const handleHexInputChange = (e) => {
+    if (currentPlan === 'Prémium') {
+      const newHex = e.target.value;
+      setHexInput(newHex);
+      if (/^#[0-9A-F]{6}$/i.test(newHex)) {
+        setColor(newHex);
+      }
+    } else {
+      alert('A QR kód színének megváltoztatása csak a Prémium előfizetéssel elérhető.');
+    }
+  };
+
+  // Function to download the QR Code
   const downloadQRCode = () => {
     const canvas = document.querySelector('canvas');
-
     if (canvas) {
       const pngUrl = canvas
         .toDataURL('image/png')
@@ -50,47 +75,15 @@ const QrCodeComponent = () => {
     }
   };
 
-  
   const resetQRCode = () => {
     setLogo(defaultLogo);
     setColor(defaultColor);
     setQrCodeData(defaultQrCodeData);
     setHexInput(defaultColor); 
-
     
     if (fileInputRef.current) {
       fileInputRef.current.value = ''; 
     }
-  };
-
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
-        setShowColorPicker(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
- 
-  const handleHexInputChange = (e) => {
-    const newHex = e.target.value;
-    setHexInput(newHex); 
-
-
-    if (/^#[0-9A-F]{6}$/i.test(newHex)) {
-      setColor(newHex);
-    }
-  };
-
-  // Sync color picker changes with the hex input field
-  const handleColorChange = (newColor) => {
-    setColor(newColor);
-    setHexInput(newColor); // Sync the input field with the color picker
   };
 
   return (
@@ -98,42 +91,45 @@ const QrCodeComponent = () => {
       <div className={styles.leftColumn}>
         <h3 className={styles.subTitle}>Egyedi logó feltöltése</h3>
 
-        {/* Modern styled file uploader */}
+        {/* Disable file uploader for "Alap" plan */}
         <label className={styles.uploadLabel}>
           <AiOutlineUpload className={styles.uploadIcon} />
           <span>Logó feltöltése</span>
           <input
-            ref={fileInputRef} // Assign ref to file input
+            ref={fileInputRef}
             className={styles.fileInput}
             type="file"
             accept="image/*"
             onChange={handleLogoUpload}
+            disabled={currentPlan === 'Alap'} // Disable for Alap plan
           />
         </label>
 
         <h3 className={styles.subTitle}>QR kód színe</h3>
         <div className={styles.colorPickerWrapper}>
-            {/* Editable Hex Input */}
-            <input
+          <input
             type="text"
             className={styles.hexInput}
             value={hexInput}
             onChange={handleHexInputChange}
-            maxLength={7} // Limit input length to 7 characters (e.g. "#FFFFFF")
+            maxLength={7}
+            disabled={currentPlan === 'Alap'} // Disable for Alap plan
           />
-          {/* Color square */}
           <div
             className={styles.colorSquare}
             style={{ backgroundColor: color }}
-            onClick={() => setShowColorPicker(!showColorPicker)} // Toggle color picker
+            onClick={() => {
+              if (currentPlan === 'Prémium') {
+                setShowColorPicker(!showColorPicker);
+              } else {
+                alert('A QR kód színének megváltoztatása csak a Prémium előfizetéssel elérhető.');
+              }
+            }}
           ></div>
 
- 
-
-          {/* Color Picker */}
-          {showColorPicker && (
+          {showColorPicker && currentPlan === 'Prémium' && (
             <div ref={pickerRef} className={styles.colorPicker}>
-              <HexColorPicker color={color} onChange={handleColorChange} />
+              <HexColorPicker color={color} onChange={setColor} />
             </div>
           )}
         </div>

@@ -26,7 +26,7 @@ const LeftNav = () => {
         <img className={styles['line']} src="/images/line.svg" alt="line" />
         <a href="/Qrcode" className={styles['navigation-text']}>QR kód</a>
         <a href="/Etterem" className={styles['navigation-text']}>Étterem</a>
-        <a href="/elofizetesek" className={styles['navigation-text']}>Előfizetések</a>
+        <a href="/Elofizetes" className={styles['navigation-text']}>Előfizetések</a>
         <img className={styles['line']} src="/images/line.svg" alt="line" />
         <a href="/Account" className={styles['navigation-text']}>Fiók kezelése</a>
       </div>

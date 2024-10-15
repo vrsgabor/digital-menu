@@ -6,6 +6,8 @@
     justify-content: center;
     padding-top: 1em;
     padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 
@@ -74,19 +76,19 @@
     z-index: 10;
 }
 
-/* Dropdown items */
+
 .dropdownItem {
-    padding: 10px 15px;
+    padding: 0.8em 1em;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.2em;
     color: #526d82;
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Hover effect for dropdown items */
+
 .dropdownItem:hover {
-    background-color: #27374d; /* Change to your desired hover color */
-    color: #dde6ed; /* Change to your desired text color */
+    background-color: #27374d;
+    color: #dde6ed;
 }
 
 /* Title styling */
@@ -189,4 +191,42 @@
 .valami{
     display: flex;
     flex-direction: row;
+}
+
+
+@media (max-width: 768px) {
+    .Title{
+        font-size: 1.4em;
+    }
+
+    .SubTitle{
+        font-size: 1.1em;
+    }
+
+    .dropdown{
+        width: 50%;
+    }
+
+    .dropdownMenu{
+        width: 50%;
+        left: 31.5%;
+    }
+    
+    .imagePlaceholder{
+        width: 70px;
+        height:  70px;
+        left: 10%;
+    }
+
+    .MealTitle{
+        font-size: 1.2em;
+    }
+
+    .MealItemWrapper{
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+    
+
+
 }

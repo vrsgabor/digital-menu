@@ -8,7 +8,7 @@ const MenuHeader = () => {
     restaurantAddress: ''
   });
 
-  // Fetch restaurant info when the component mounts
+
   useEffect(() => {
     const fetchRestaurantInfo = async () => {
       try {
@@ -28,8 +28,8 @@ const MenuHeader = () => {
 
   return (
     <div className={styles.MenuHeader}>
-      <h1 className={styles.Title}>{restaurantInfo.restaurantName || 'Loading...'}</h1>
-      <h2 className={styles.SubTitle}>{restaurantInfo.restaurantAddress || 'Loading...'}</h2>
+      <h1 className={styles.Title}>{restaurantInfo.restaurantName || 'Betöltés...'}</h1>
+      <h2 className={styles.SubTitle}>{restaurantInfo.restaurantAddress || 'Betöltés...'}</h2>
     </div>
   );
 };
