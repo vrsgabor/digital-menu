@@ -104,8 +104,8 @@
   .colorPicker {
     position: absolute;
     z-index: 10;
-    top: 0;
-    right: 0; /* Align to the right side of the square */
+    top: 0%;
+    right: 7%; /* Align to the right side of the square */
     transform: translate(100%, -100%); /* Shift it up and to the right */
   }
   
@@ -130,5 +130,15 @@
   .subTitle{
     font-family: 'SF Pro Display', sans-serif;
     font-size: 1.3em;
+    color: #526d82;
+  }
+
+  .disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .planWarning{
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 1em;
     color: #526d82;
   }

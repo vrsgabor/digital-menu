@@ -4,6 +4,14 @@
       "mealName": "Bécsi szelet",
       "description": "hasáb",
       "price": "3590",
+      "allergens": "asdad",
+      "category": "Főételek",
+      "imageURL": "blob:http://localhost:3000/d83e7a8b-7acb-464b-a8d8-fac654ab18e6"
+    },
+    {
+      "mealName": "sdsdf",
+      "description": "sdfsdf",
+      "price": "2100",
       "category": "Főételek",
       "imageURL": null
     },
@@ -12,13 +20,6 @@
       "description": "tejszínhabbal",
       "price": "950",
       "category": "Levesek",
-      "imageURL": null
-    },
-    {
-      "mealName": "Sajttorta",
-      "description": "eperkrémmel",
-      "price": "1120",
-      "category": "Desszertek",
       "imageURL": null
     }
   ]

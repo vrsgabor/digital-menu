@@ -15,7 +15,7 @@ const ListItems = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const response = await fetch("/meals.json"); // Fetch data from the JSON file
+        const response = await fetch("/api/updateMeals"); // Fetch data from the API
         const data = await response.json();
 
         // Prepare tabs from unique categories in the JSON data
@@ -93,7 +93,6 @@ const ListItems = () => {
     setMeals(updatedMeals);
   };
   
-
   const addMeal = (tabIndex) => {
     const updatedMeals = { ...meals };
 
@@ -102,7 +101,7 @@ const ListItems = () => {
     }
 
     updatedMeals[tabIndex].push({
-      name: "",
+      mealName: "",
       description: "",
       allergens: "",
       price: "",
@@ -118,6 +117,7 @@ const ListItems = () => {
         mealName: meal.mealName,
         description: meal.description,
         price: meal.price,
+        allergens: meal.allergens,  // Include allergens in the saved data
         category: tab.name,
         imageURL: meal.photo ? URL.createObjectURL(meal.photo) : null,
       })) || []

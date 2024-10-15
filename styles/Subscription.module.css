@@ -1,4 +1,4 @@
-.contentWrapper{
+.contentWrapper {
     margin-top: 5em;
     padding-bottom: 2em;
     padding-left: 10%;
@@ -9,7 +9,7 @@
     justify-content: space-between;
 }
 
-.card{
+.card {
     padding-top: 2em;
     padding-bottom: 2em;
     padding-left: 3em;
@@ -21,10 +21,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-
+    border: 2px solid #dde6ed;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Adding the quart ease-out transition */
 }
 
-.cardTitle{
+.cardTitle {
     color: #27374d;
     font-family: 'SF Pro Display', sans-serif;
     font-size: 1.8em;
@@ -35,8 +36,7 @@
     padding-bottom: 0.5em;
 }
 
-.subTitle{
-    
+.subTitle {
     color: #526d82;
     font-family: 'SF Pro Display', sans-serif;
     font-size: 1.2em;
@@ -48,8 +48,8 @@
     padding-bottom: 2em;
 }
 
-.regButton{
-    font-family: Sf Pro Display, sans-serif;
+.regButton {
+    font-family: 'SF Pro Display', sans-serif;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1em;
@@ -62,22 +62,21 @@
     border: none;
     color: #dde6ed;
     border: 2px solid #27374d;
-    transition: all 0.15s ease-in-out; 
+    transition: all 0.15s ease-in-out;
 }
 
-.regButton:hover{
+.regButton:hover {
     background-color: #dde6ed;
     color: #27374d;
     border: 2px solid #27374d;
 }
 
-
-.listItemWrapper{
+.listItemWrapper {
     display: flex;
     flex-direction: row;
 }
 
-.listItem{
+.listItem {
     font-family: 'SF Pro Display', sans-serif;
     margin: 0;
     padding: 0;
@@ -86,7 +85,7 @@
     font-size: 1em;
 }
 
-.icon{
+.icon {
     font-family: 'SF Pro Display', sans-serif;
     margin: 0;
     padding: 0;
@@ -95,11 +94,12 @@
     font-size: 16px;
     margin-right: 0.5em;
 }
-.content{
+
+.content {
     margin-bottom: 8em;
 }
 
-.cardContentWrapper{
+.cardContentWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,10 +108,12 @@
 .activeCard {
     border: 2px solid #27374d;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
+    transform: scale(1.05); /* Scaling the card */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Ease-out-quart transition */
+}
 
-  .cardContent{
+.cardContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}

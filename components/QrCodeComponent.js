@@ -28,6 +28,19 @@ const QrCodeComponent = () => {
       });
   }, []);
 
+  // Effect to handle closing the color picker when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+        setShowColorPicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleLogoUpload = (e) => {
     if (currentPlan === 'Prémium') {
       const file = e.target.files[0];
@@ -92,7 +105,9 @@ const QrCodeComponent = () => {
         <h3 className={styles.subTitle}>Egyedi logó feltöltése</h3>
 
         {/* Disable file uploader for "Alap" plan */}
-        <label className={styles.uploadLabel}>
+        <label 
+          className={`${styles.uploadLabel} ${currentPlan === 'Alap' ? styles.disabled : ''}`}
+        >
           <AiOutlineUpload className={styles.uploadIcon} />
           <span>Logó feltöltése</span>
           <input
@@ -106,7 +121,7 @@ const QrCodeComponent = () => {
         </label>
 
         <h3 className={styles.subTitle}>QR kód színe</h3>
-        <div className={styles.colorPickerWrapper}>
+        <div className={`${styles.colorPickerWrapper} ${currentPlan === 'Alap' ? styles.disabled : ''}`}>
           <input
             type="text"
             className={styles.hexInput}
@@ -133,6 +148,9 @@ const QrCodeComponent = () => {
             </div>
           )}
         </div>
+        {currentPlan === 'Alap' && (
+          <p className={styles.planWarning}>Ezek a funkciók kizárólag Prémium előfizetéssel elérhetőek.</p>
+        )}
       </div>
 
       <div className={styles.rightColumn}>

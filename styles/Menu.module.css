@@ -132,6 +132,7 @@
     padding-bottom: 2em;
     border-radius: 1em;
     position: relative;
+    cursor: pointer;
 }
 
 .MealItemContent{
@@ -193,7 +194,165 @@
     flex-direction: row;
 }
 
+.closeButton{
+    color: #526d82;
+    font-size: 1.5em;
+}
 
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes floatIn {
+    0% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes floatOut {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+  }
+  
+  .popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  .popupOverlay.closing {
+    animation: fadeOut 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  .popupContent {
+    background-color: #fff;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    padding-top: 3em;
+    padding-bottom: 1em;
+    border-radius: 1em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    width: 30%;
+    animation: floatIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  .popupOverlay.closing .popupContent {
+    animation: floatOut 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  .popupImage {
+    width: 25%;
+    height: 125px;
+    border-radius: 1em;
+    background-color: #27374d;
+    object-fit: cover;
+    position: absolute;
+    bottom: 85%;
+    left: 37.5%;
+  }
+  
+  .popupTitle {
+    font-family: Oswald, sans-serif;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #27374d;
+    margin-bottom: 0.2em;
+  }
+
+  .popupWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .allergensWrapper{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .popupDescription {
+    font-family: Oswald, sans-serif;
+    font-size: 1.2em;
+    color: #526d82;
+    margin-bottom: 1em;
+  }
+  
+  .popupAllergens {
+    font-family: Oswald, sans-serif;
+    font-size: 1em;
+    color: #526d82;
+    margin-bottom: 1em;
+    font-weight: 600;
+    margin-right: 1em;
+  }
+  
+  .popupAllergensList{
+    font-family: Oswald, sans-serif;
+    font-size: 1em;
+    color: #526d82;
+    margin-bottom: 1em;
+  }
+
+  .popupPriceWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popupPrice {
+    font-family: Oswald, sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #27374d;
+  }
+  
+  .closePopup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #27374d;
+  }
+  
+  
 @media (max-width: 768px) {
     .Title{
         font-size: 1.4em;

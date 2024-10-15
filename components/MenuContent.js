@@ -2,26 +2,29 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Menu.module.css';
 import { IoIosArrowDown } from "react-icons/io";
+import { IoCloseSharp } from "react-icons/io5";
 
 const MenuContent = () => {
-  const [selectedItem, setSelectedItem] = useState(''); // Default to the first item
-  const [isOpen, setIsOpen] = useState(false); // Dropdown open/close state
-  const dropdownRef = useRef(null); // Ref to track the dropdown container
-  const [meals, setMeals] = useState([]); // State to store the meals from JSON
-  const [filteredMeals, setFilteredMeals] = useState([]); // State to store filtered meals based on category
-  const [categories, setCategories] = useState([]); // State to store categories dynamically
+  const [selectedItem, setSelectedItem] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const [meals, setMeals] = useState([]);
+  const [filteredMeals, setFilteredMeals] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedMeal, setSelectedMeal] = useState(null);
+  const [showPopup, setShowPopup] = useState(false); // Controls both visibility and animation
+  const [isClosing, setIsClosing] = useState(false); // Controls closing animation
 
   // Fetch meals data from the JSON file
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch('/meals.json'); // Replace with actual path to the JSON file
+      const response = await fetch('/meals.json');
       const data = await response.json();
-      setMeals(data.meals); // Assuming 'meals' is the array in the JSON
+      setMeals(data.meals);
 
-      // Extract unique categories from the meals array
       const uniqueCategories = [...new Set(data.meals.map(meal => meal.category))];
       setCategories(uniqueCategories);
-      setSelectedItem(uniqueCategories[0]); // Default to the first category
+      setSelectedItem(uniqueCategories[0]); // Set default selected category
     };
 
     fetchMeals();
@@ -39,7 +42,7 @@ const MenuContent = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false); // Close dropdown if clicked outside
+        setIsOpen(false);
       }
     };
 
@@ -50,9 +53,25 @@ const MenuContent = () => {
     };
   }, [dropdownRef]);
 
-  const handleSelectItem = (item) => {
-    setSelectedItem(item); // Update selected item
-    setIsOpen(false); // Close dropdown after selection
+  // Handle selecting a category from the dropdown
+  const handleSelectItem = (category) => {
+    setSelectedItem(category); // Set the selected category
+    setIsOpen(false); // Close the dropdown
+  };
+
+  // Handle clicking a meal to show the popup
+  const handleMealClick = (meal) => {
+    setSelectedMeal(meal);
+    setShowPopup(true); // Open the popup
+    setIsClosing(false); // Ensure it's not in the closing state
+  };
+
+  // Handle closing the popup with a delay to sync with the closing animation
+  const handleClosePopup = () => {
+    setIsClosing(true); // Start closing animation
+    setTimeout(() => {
+      setShowPopup(false); // Hide the popup after the animation completes
+    }, 600); // 600ms to match the closing animation duration
   };
 
   return (
@@ -70,7 +89,7 @@ const MenuContent = () => {
               <li
                 key={index}
                 className={styles.dropdownItem}
-                onClick={() => handleSelectItem(category)}
+                onClick={() => handleSelectItem(category)} // Call the function when an item is clicked
               >
                 {category}
               </li>
@@ -78,12 +97,17 @@ const MenuContent = () => {
           </ul>
         )}
       </div>
+
       <h2 className={styles.selectedTitle}>{selectedItem}</h2>
       <div className={styles.MealsWrapper}>
         {filteredMeals.length > 0 ? (
           filteredMeals.map((meal, index) => (
-            <div key={index} className={styles.MealItemWrapper}>
-                <img src={meal.imageURL} alt={meal.mealName} className={styles.imagePlaceholder} />
+            <div
+              key={index}
+              className={styles.MealItemWrapper}
+              onClick={() => handleMealClick(meal)}
+            >
+              <img src={meal.imageURL} className={styles.imagePlaceholder} alt="meal" />
               <div className={styles.MealItemContent}>
                 <div className={styles.leftColoumn}>
                   <h4 className={styles.MealTitle}>{meal.mealName}</h4>
@@ -97,9 +121,30 @@ const MenuContent = () => {
             </div>
           ))
         ) : (
-          <p>No meals available for {selectedItem}.</p>
+          <p>Nincs elérhető adat {selectedItem}.</p>
         )}
       </div>
+
+      {/* Popup for showing meal details */}
+      {showPopup && (
+        <div className={`${styles.popupOverlay} ${isClosing ? styles.closing : styles.open}`}>
+          <div className={styles.popupContent}>
+            <button className={styles.closePopup} onClick={handleClosePopup}><IoCloseSharp className={styles.closeButton} /></button>
+            <img src={selectedMeal?.imageURL} className={styles.popupImage} alt="meal" />
+            <div className={styles.popupWrapper}>
+              <h3 className={styles.popupTitle}>{selectedMeal?.mealName}</h3>
+              <p className={styles.popupDescription}>{selectedMeal?.description}</p>
+            </div>
+            <div className={styles.allergensWrapper}>
+              <p className={styles.popupAllergens}>Allergének:</p>
+              <p className={styles.popupAllergensList}>{selectedMeal?.allergens || 'Nincs információ'}</p>
+            </div>
+            <div className={styles.popupPriceWrapper}>
+              <p className={styles.popupPrice}>{selectedMeal?.price} Ft</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
