@@ -345,3 +345,36 @@
 .fileInput {
   display: none;
 }
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  flex-direction: column;
+}
+
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #526d82; /* Dark grey/blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderWrapper p {
+  margin-top: 1em;
+  font-family: 'SF Pro Display', sans-serif;
+  font-size: 1.2em;
+  color: #526d82;
+}

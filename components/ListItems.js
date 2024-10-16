@@ -10,6 +10,7 @@ const ListItems = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [meals, setMeals] = useState({ 0: [] });
   const [isEditingTab, setIsEditingTab] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   // Fetch meals data from the meals.json file on component mount
   useEffect(() => {
@@ -32,8 +33,11 @@ const ListItems = () => {
           categorizedMeals[index] = data.meals.filter((meal) => meal.category === category);
         });
         setMeals(categorizedMeals);
+
+        setLoading(false); // Set loading to false when fetch is done
       } catch (error) {
         console.error("Error fetching meals data:", error);
+        setLoading(false); // Even on error, stop loading
       }
     };
 
@@ -92,7 +96,7 @@ const ListItems = () => {
     updatedMeals[tabIndex][mealIndex][field] = value; // Update mealName instead of name
     setMeals(updatedMeals);
   };
-  
+
   const addMeal = (tabIndex) => {
     const updatedMeals = { ...meals };
 
@@ -117,7 +121,7 @@ const ListItems = () => {
         mealName: meal.mealName,
         description: meal.description,
         price: meal.price,
-        allergens: meal.allergens,  // Include allergens in the saved data
+        allergens: meal.allergens, // Include allergens in the saved data
         category: tab.name,
         imageURL: meal.photo ? URL.createObjectURL(meal.photo) : null,
       })) || []
@@ -212,64 +216,72 @@ const ListItems = () => {
     </div>
   );
 
+  // Loader component
+  const Loader = () => (
+    <div className={styles.loaderWrapper}>
+      <div className={styles.loader}></div>
+      <p>Betöltés...</p>
+    </div>
+  );
+
   return (
     <div>
-      <div className={styles.contentWrapper}>
-        <div className={styles.itemsContainer}>
-          <div className={styles.tabContainer}>
-            <div className={styles.tabItemContainer}>
-              {tabs.map((tab, index) => (
-                <div key={index} className={styles.tabItem}>
-                  {isEditingTab === index ? (
-                    <input
-                      type="text"
-                      value={tab.name}
-                      onChange={(e) => handleTabNameChange(index, e.target.value)}
-                      onBlur={finishEditingTab}
-                      onKeyDown={(e) =>
-                        e.key === "Enter" && finishEditingTab()
-                      }
-                      className={`${styles.tabInput} ${styles.tabButton}`}
-                      autoFocus
-                    />
-                  ) : (
-                    <div
-                      className={`${styles.tabButton} ${
-                        activeTab === index ? styles.activeTab : ""
-                      }`}
-                      onClick={() => handleTabChange(index)}
-                    >
-                      <span>{tab.name}</span>
-                      <div className={styles.iconContainer}>
-                        <MdEdit
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleEditTab(index);
-                          }}
-                          className={styles.icon}
-                        />
-                        <IoMdRemoveCircleOutline
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteTab(index);
-                          }}
-                          className={styles.icon}
-                        />
+      {loading ? ( // Show loader while fetching
+        <Loader />
+      ) : (
+        <div className={styles.contentWrapper}>
+          <div className={styles.itemsContainer}>
+            <div className={styles.tabContainer}>
+              <div className={styles.tabItemContainer}>
+                {tabs.map((tab, index) => (
+                  <div key={index} className={styles.tabItem}>
+                    {isEditingTab === index ? (
+                      <input
+                        type="text"
+                        value={tab.name}
+                        onChange={(e) => handleTabNameChange(index, e.target.value)}
+                        onBlur={finishEditingTab}
+                        onKeyDown={(e) => e.key === "Enter" && finishEditingTab()}
+                        className={`${styles.tabInput} ${styles.tabButton}`}
+                        autoFocus
+                      />
+                    ) : (
+                      <div
+                        className={`${styles.tabButton} ${
+                          activeTab === index ? styles.activeTab : ""
+                        }`}
+                        onClick={() => handleTabChange(index)}
+                      >
+                        <span>{tab.name}</span>
+                        <div className={styles.iconContainer}>
+                          <MdEdit
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleEditTab(index);
+                            }}
+                            className={styles.icon}
+                          />
+                          <IoMdRemoveCircleOutline
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteTab(index);
+                            }}
+                            className={styles.icon}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    )}
+                  </div>
+                ))}
+              </div>
+              <button onClick={addTab} className={styles.addTabButton}>
+                + Új kategória
+              </button>
             </div>
-            <button onClick={addTab} className={styles.addTabButton}>
-              + Új kategória
-            </button>
-          </div>
-          <div className={styles.mealContent}>
-            {renderMealForm(activeTab)}
+            <div className={styles.mealContent}>{renderMealForm(activeTab)}</div>
           </div>
         </div>
-      </div>
+      )}
       <a href="#" className={styles.saveBtn} onClick={saveMeals}>
         <div className={styles.saveBtnEtlap}>Mentés</div>
       </a>
