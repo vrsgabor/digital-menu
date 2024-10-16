@@ -378,3 +378,96 @@
   font-size: 1.2em;
   color: #526d82;
 }
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popupContent {
+  background-color: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.popupButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.okButton {
+  background-color: #526d82;
+  color: white;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background-color: #aaa;
+  color: white;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.okButton:hover {
+  background-color: #435a70;
+}
+
+.cancelButton:hover {
+  background-color: #888;
+}
+
+.fileUploadButton {
+  display: flex;
+  align-items: center;
+  background-color: #526d82;
+  color: white;
+  padding: 0.5em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.uploadIcon {
+  margin-right: 8px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadedImage {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.mealForm p {
+  margin: 0;
+  padding: 0.5em;
+  background-color: #dde6ed;
+  border-radius: 5px;
+  font-family: "Sf Pro Display", sans-serif;
+  color: #526d82;
+}
+
+.mealImage {
+  margin-top: 10px;
+}

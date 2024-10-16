@@ -6,12 +6,20 @@
       "price": "3590",
       "allergens": "asdad",
       "category": "Főételek",
-      "imageURL": "blob:http://localhost:3000/14940500-cbd4-4d8e-aa8f-98de27017e3e"
+      "imageURL": null
     },
     {
       "mealName": "sdsdf",
       "description": "sdfsdf",
       "price": "2100",
+      "category": "Főételek",
+      "imageURL": null
+    },
+    {
+      "mealName": "aaaaaaaa",
+      "description": "vbbbbbbbbbbbbbbb",
+      "price": "2134",
+      "allergens": "ccccccccccccccccccccccc",
       "category": "Főételek",
       "imageURL": null
     },
