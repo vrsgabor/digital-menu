@@ -143,7 +143,7 @@
 }
 
 .description{
-    max-width: 60%;
+    max-width: 90%;
     font-family: Oswald,sans-serif;
     color: #27374d;
     margin: 0;
@@ -246,7 +246,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
+    background: #27374da1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -267,7 +267,7 @@
     border-radius: 1em;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
-    width: 30%;
+    width: 40%;
     animation: floatIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
   
@@ -316,16 +316,26 @@
     font-family: Oswald, sans-serif;
     font-size: 1em;
     color: #526d82;
-    margin-bottom: 1em;
-    font-weight: 600;
-    margin-right: 1em;
+    text-transform: uppercase;
+    line-height: 100%;
+    margin: 0;
+    margin-right: 0.5em;
+
   }
   
+  .allergensWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2em;
+  }
   .popupAllergensList{
     font-family: Oswald, sans-serif;
     font-size: 1em;
     color: #526d82;
-    margin-bottom: 1em;
+    line-height: 100%;
+    margin: 0;
+    
   }
 
   .popupPriceWrapper {
@@ -388,4 +398,41 @@
     
 
 
+    .popupContent{
+        width: 70%;
+        min-height: 50%;
+        padding-left: 1em;
+        padding-right: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .popupDescription{
+        text-align: center;
+        font-size: 1em;
+    }
+    .popupTitle{
+        font-size: 1.5em;
+    }
+
+    .popupImage{
+        width: 40%;
+        left: 30%;
+        height: 120px;
+    }
+    .popupPrice{
+        font-size: 1.3em;
+    }
+
+    .allergensWrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .popupAllergens{
+        margin-right: 0em;
+        margin-bottom: 1em;
+    }
 }

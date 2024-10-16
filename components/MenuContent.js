@@ -131,6 +131,7 @@ const MenuContent = () => {
           <div className={styles.popupContent}>
             <button className={styles.closePopup} onClick={handleClosePopup}><IoCloseSharp className={styles.closeButton} /></button>
             <img src={selectedMeal?.imageURL} className={styles.popupImage} alt="meal" />
+            <div className={styles.upperContent}>
             <div className={styles.popupWrapper}>
               <h3 className={styles.popupTitle}>{selectedMeal?.mealName}</h3>
               <p className={styles.popupDescription}>{selectedMeal?.description}</p>
@@ -138,6 +139,7 @@ const MenuContent = () => {
             <div className={styles.allergensWrapper}>
               <p className={styles.popupAllergens}>Allergének:</p>
               <p className={styles.popupAllergensList}>{selectedMeal?.allergens || 'Nincs információ'}</p>
+            </div>
             </div>
             <div className={styles.popupPriceWrapper}>
               <p className={styles.popupPrice}>{selectedMeal?.price} Ft</p>

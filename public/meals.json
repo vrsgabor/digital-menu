@@ -2,11 +2,11 @@
   "meals": [
     {
       "mealName": "Bécsi szelet",
-      "description": "hasáb",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non euismod nisi.",
       "price": "3590",
       "allergens": "asdad",
       "category": "Főételek",
-      "imageURL": "blob:http://localhost:3000/d83e7a8b-7acb-464b-a8d8-fac654ab18e6"
+      "imageURL": "blob:http://localhost:3000/14940500-cbd4-4d8e-aa8f-98de27017e3e"
     },
     {
       "mealName": "sdsdf",
