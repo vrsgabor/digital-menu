@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import styles from "../styles/Etlap.module.css";
 import { AiOutlineUpload } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
-import { IoMdRemoveCircleOutline, IoMdRemoveCircle } from "react-icons/io";
+import { IoCloseSharp } from "react-icons/io5";
+import { IoMdRemoveCircleOutline} from "react-icons/io";
+import { GoGrabber } from "react-icons/go";
 
 const ListItems = () => {
   const [tabs, setTabs] = useState([{ name: "Új kategória", editable: false }]);
@@ -11,7 +13,7 @@ const ListItems = () => {
   const [meals, setMeals] = useState({ 0: [] });
   const [isEditingTab, setIsEditingTab] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showPopup, setShowPopup] = useState(false); // Control the pop-up visibility
+  const [showPopup, setShowPopup] = useState(false); // Control popup visibility
   const [newMeal, setNewMeal] = useState({
     mealName: "",
     description: "",
@@ -19,7 +21,9 @@ const ListItems = () => {
     price: "",
     photo: null,
   });
-  const [editMealIndex, setEditMealIndex] = useState(null); // Keep track of which meal is being edited
+  const [editMealIndex, setEditMealIndex] = useState(null); // Track meal being edited
+  const [popupVisible, setPopupVisible] = useState(false); // Handle visibility state
+  const [errors, setErrors] = useState({}); // Track validation errors
 
   // Fetch meals data from the meals.json file on component mount
   useEffect(() => {
@@ -51,15 +55,29 @@ const ListItems = () => {
     fetchMeals();
   }, []);
 
-  const handleTabChange = (index) => {
-    setActiveTab(index);
-  };
-
+  // Handle form input changes
   const handleMealInputChange = (field, value) => {
     setNewMeal((prevMeal) => ({
       ...prevMeal,
       [field]: value,
     }));
+  };
+
+  // Validate required fields (mealName and price)
+  const validateFields = () => {
+    let validationErrors = {};
+    if (!newMeal.mealName.trim()) {
+      validationErrors.mealName = "A név mező kitöltése kötelező!";
+    }
+    if (!newMeal.price || isNaN(newMeal.price)) {
+      validationErrors.price = "Az ár mező kitöltése kötelező és számnak kell lennie!";
+    }
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
+  const handleTabChange = (index) => {
+    setActiveTab(index);
   };
 
   const handleTabNameChange = (index, newName) => {
@@ -106,6 +124,10 @@ const ListItems = () => {
   };
 
   const addMealToTab = () => {
+    if (!validateFields()) {
+      return; // Do not proceed if validation fails
+    }
+
     const updatedMeals = { ...meals };
 
     if (editMealIndex !== null) {
@@ -119,7 +141,7 @@ const ListItems = () => {
     }
 
     setMeals(updatedMeals);
-    closePopup();
+    triggerClosePopup();
   };
 
   const openPopup = (meal = null, mealIndex = null) => {
@@ -136,11 +158,14 @@ const ListItems = () => {
       });
       setEditMealIndex(null); // Reset to add mode
     }
-    setShowPopup(true);
+    setErrors({}); // Clear previous errors
+    setShowPopup(true); // Show the popup instantly
+    setTimeout(() => setPopupVisible(true), 10); // Delay visibility for smooth transition
   };
 
-  const closePopup = () => {
-    setShowPopup(false);
+  const triggerClosePopup = () => {
+    setPopupVisible(false); // Trigger the float-out effect
+    setTimeout(() => setShowPopup(false), 500); // Close popup after animation ends
   };
 
   const saveMeals = async () => {
@@ -181,29 +206,39 @@ const ListItems = () => {
       {(meals[tabIndex] || []).map((meal, mealIndex) => (
         <div key={mealIndex} className={styles.mealForm}>
           <div className={styles.formWrapper}>
-            <p>{meal.mealName}</p>
-            <p>{meal.description}</p>
-            <p>{meal.allergens}</p>
-            <p>{meal.price} Ft</p>
+            <GoGrabber className={styles.grabber} />
+            
+            {/* Conditionally render the image if it's provided */}
+            {meal.photo && (
+              <img src={URL.createObjectURL(meal.photo)} alt="Meal" className={styles.uploadedImage} />
+            )}
+  
+            {/* Conditionally render the mealName */}
+            {meal.mealName && <p>{meal.mealName}</p>}
+  
+            {/* Conditionally render the description */}
+            {meal.description && <p className={styles.description}>{meal.description}</p>}
+  
+            {/* Conditionally render the allergens */}
+            {meal.allergens && <p>{meal.allergens}</p>}
+  
+            {/* Conditionally render the price */}
+            {meal.price && <p>{meal.price} Ft</p>}
+  
             <div className={styles.buttonGroup}>
               <button
-                onClick={() => openPopup(meal, mealIndex)} // Open popup with meal data for editing
                 className={styles.editButton}
+                onClick={() => openPopup(meal, mealIndex)}
               >
                 <MdEdit />
               </button>
               <button
+                className={styles.closeButton}
                 onClick={() => removeMeal(tabIndex, mealIndex)}
-                className={styles.removeButton}
               >
-                <IoMdRemoveCircle />
+                <IoCloseSharp />
               </button>
             </div>
-          </div>
-          <div className={styles.mealImage}>
-            {meal.photo && (
-              <img src={URL.createObjectURL(meal.photo)} alt="Meal" className={styles.uploadedImage} />
-            )}
           </div>
         </div>
       ))}
@@ -212,50 +247,64 @@ const ListItems = () => {
       </button>
     </div>
   );
+  
 
   const renderPopup = () => (
-    <div className={styles.popupOverlay}>
-      <div className={styles.popupContent}>
-        <h2>{editMealIndex !== null ? "Tétel szerkesztése" : "Új tétel hozzáadása"}</h2>
-        <input
-          type="text"
-          placeholder="Név"
-          value={newMeal.mealName}
-          onChange={(e) => handleMealInputChange("mealName", e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Leírás"
-          value={newMeal.description}
-          onChange={(e) => handleMealInputChange("description", e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Allergének"
-          value={newMeal.allergens}
-          onChange={(e) => handleMealInputChange("allergens", e.target.value)}
-        />
-        <input
+    showPopup && (
+      <div className={`${styles.popupOverlay} ${popupVisible ? styles.visible : styles.hidden}`}>
+        <div className={`${styles.popupContent}`}>
+          <h2 className={styles.popUpTitle}>{editMealIndex !== null ? "Tétel szerkesztése" : "Új tétel hozzáadása"}</h2>
+          <div className={styles.inputFieldWrapper}>
+          <input
+            type="text"
+            placeholder="Név"
+            value={newMeal.mealName}
+            onChange={(e) => handleMealInputChange("mealName", e.target.value)}
+            className={`${errors.mealName ? styles.inputError : ""} ${styles.popUpInput}`}
+        
+          />
+          {errors.mealName && <p className={styles.errorMessage}>{errors.mealName}</p>}
+          <input
+            type="text"
+            placeholder="Leírás"
+            value={newMeal.description}
+            onChange={(e) => handleMealInputChange("description", e.target.value)}
+            className={styles.popUpInput}
+          />
+          <input
+            type="text"
+            placeholder="Allergének"
+            value={newMeal.allergens}
+            onChange={(e) => handleMealInputChange("allergens", e.target.value)}
+            className={styles.popUpInput}
+          />
+          <input
           type="number"
           placeholder="Ár"
           value={newMeal.price}
           onChange={(e) => handleMealInputChange("price", e.target.value)}
-        />
-        <label className={styles.fileUploadButton}>
-          <AiOutlineUpload className={styles.uploadIcon} />
-          Kép feltöltése
-          <input
-            type="file"
-            onChange={(e) => handleMealInputChange("photo", e.target.files[0])}
-            className={styles.fileInput}
+          className={`${errors.price ? styles.inputError : ""} ${styles.numberInput} ${styles.popUpInput}`}
           />
-        </label>
-        <div className={styles.popupButtons}>
-          <button onClick={addMealToTab} className={styles.okButton}>OK</button>
-          <button onClick={closePopup} className={styles.cancelButton}>Mégsem</button>
+
+          {errors.price && <p className={styles.errorMessage}>{errors.price}</p>}
+          </div>
+          
+          <label className={styles.fileUploadButton}>
+            <AiOutlineUpload className={styles.uploadIcon} />
+            Kép feltöltése
+            <input
+              type="file"
+              onChange={(e) => handleMealInputChange("photo", e.target.files[0])}
+              className={styles.fileInput}
+            />
+          </label>
+          <div className={styles.popupButtons}>
+            <button onClick={addMealToTab} className={styles.okButton}>OK</button>
+            <button onClick={triggerClosePopup} className={styles.okButton}>Mégsem</button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 
   return (
@@ -268,61 +317,61 @@ const ListItems = () => {
             <div className={styles.tabContainer}>
               <div className={styles.tabItemContainer}>
                 {tabs.map((tab, index) => (
-  <div key={index} className={styles.tabItem}>
-    {isEditingTab === index ? (
-      <input
-        type="text"
-        value={tab.name}
-        onChange={(e) => handleTabNameChange(index, e.target.value)}
-        onBlur={finishEditingTab}
-        onKeyDown={(e) => e.key === "Enter" && finishEditingTab()}
-        className={`${styles.tabInput} ${styles.tabButton}`}
-        autoFocus
-      />
-    ) : (
-      <div
-        className={`${styles.tabButton} ${
-          activeTab === index ? styles.activeTab : ""
-        }`}
-        onClick={() => handleTabChange(index)}
-      >
-        <span>{tab.name}</span>
-        <div className={styles.iconContainer}>
-          <MdEdit
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleEditTab(index);
-            }}
-            className={styles.icon}
-          />
-          <IoMdRemoveCircleOutline
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteTab(index);
-            }}
-            className={styles.icon}
-          />
+                  <div key={index} className={styles.tabItem}>
+                    {isEditingTab === index ? (
+                      <input
+                        type="text"
+                        value={tab.name}
+                        onChange={(e) => handleTabNameChange(index, e.target.value)}
+                        onBlur={finishEditingTab}
+                        onKeyDown={(e) => e.key === "Enter" && finishEditingTab()}
+                        className={`${styles.tabInput} ${styles.tabButton}`}
+                        autoFocus
+                      />
+                    ) : (
+                      <div
+                        className={`${styles.tabButton} ${
+                          activeTab === index ? styles.activeTab : ""
+                        }`}
+                        onClick={() => handleTabChange(index)}
+                      >
+                        <span>{tab.name}</span>
+                        <div className={styles.iconContainer}>
+                          <MdEdit
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleEditTab(index);
+                            }}
+                            className={styles.icon}
+                          />
+                          <IoMdRemoveCircleOutline
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteTab(index);
+                            }}
+                            className={styles.icon}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <button onClick={addTab} className={styles.addTabButton}>
+                + Új kategória
+              </button>
+            </div>
+            <div className={styles.mealContent}>{renderMealForm(activeTab)}</div>
+          </div>
         </div>
-      </div>
-    )}
-  </div>
-))}
-</div>
-<button onClick={addTab} className={styles.addTabButton}>
-+ Új kategória
-</button>
-</div>
-<div className={styles.mealContent}>{renderMealForm(activeTab)}</div>
-</div>
-</div>
-)}
-{showPopup && renderPopup()}
-<a href="#" className={styles.saveBtn} onClick={saveMeals}>
-<div className={styles.saveBtnEtlap}>Mentés</div>
-</a>
-</div>
-);
+      )}
+      {renderPopup()}
+      <a href="#" className={styles.saveBtn} onClick={saveMeals}>
+        <div className={styles.saveBtnEtlap}>Mentés</div>
+      </a>
+    </div>
+  );
 };
 
 export default ListItems;
-
+s

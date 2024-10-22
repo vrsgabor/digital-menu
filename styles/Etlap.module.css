@@ -116,7 +116,8 @@
 
   .itemsContainer{
     display: flex;
-    overflow: hidden;
+    width: 100%;
+    padding-right: 2em;
   }
   
   .tabContainer {
@@ -195,15 +196,15 @@
   }
   
   .mealContent {
-    flex-grow: 1;
+    width: 100%;
     margin-left: 2em;
     padding-top: 1.92em;
   }
-  
-  .mealForm {
-    display: flex;
-    flex-direction: column;
+
+  .description{
+    max-width: 40%;
   }
+
   
   .mealForm input{
     padding: 0.8em;
@@ -278,9 +279,28 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
+    border-radius: 1em;
     gap: 1em;
+    padding: 1em;
+    margin-bottom: 2em;
+    background-color: #fafafa;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.07);
+    
   }
+
+  .numberInput {
+    /* For Chrome, Safari, and Edge */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* For Firefox */
+    -moz-appearance: textfield;
+}
+
+
 
   .uploadLabel {
     font-family: 'SF Pro Display', sans-serif;
@@ -298,6 +318,10 @@
   
   .uploadLabel:hover {
     background-color: #435a70;
+  }
+
+  .mealForm{
+    width: 100%;
   }
   
   .uploadIcon {
@@ -379,46 +403,131 @@
   color: #526d82;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes floatIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes floatOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+/* Overlay - only opacity change, no movement */
 .popupOverlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(39, 55, 77, 0.65); /* Semi-transparent overlay */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  opacity: 0;
+  transition: opacity 0.5s ease; /* Fade in/out effect for overlay */
 }
 
+.popupOverlay.visible {
+  opacity: 1; /* Overlay fades in */
+}
+
+.popupOverlay.hidden {
+  opacity: 0; /* Overlay fades out */
+}
+
+/* Pop-up Window - move and opacity change */
 .popupContent {
+  background-color: #fff;
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
+  padding-left: 4em;
+  padding-right: 4em;
+  border-radius: 1em;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 25%;
+  opacity: 0;
+  transform: translateY(-50px); /* Start position for the pop-up (off-screen) */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Opacity and movement transition */
+}
+
+.popUpInput{
+  border: none;
+  padding: 0.6em;
+  font-family: Sf Pro Display, sans-serif;
+  font-size: 1.1em;
+  color: #526d82;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   background-color: white;
-  padding: 2em;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 400px;
+}
+
+.popUpInput::placeholder{
+  color:#526d82;
+}
+
+.popUpInput:focus{
+  outline: none;
+}
+
+
+
+.inputFieldWrapper{
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1.5em;
+}
+.popupOverlay.visible .popupContent {
+  opacity: 1;
+  transform: translateY(0); /* Pop-up moves into place */
 }
 
+.popupOverlay.hidden .popupContent {
+  opacity: 0;
+  transform: translateY(-50px); /* Pop-up moves back up and fades out */
+}
+
+/* Buttons and Input */
 .popupButtons {
   display: flex;
   justify-content: space-between;
+  margin-top: 1.5em;
 }
 
-.okButton {
-  background-color: #526d82;
-  color: white;
-  padding: 0.6em 1.2em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
+.okButton,
 .cancelButton {
-  background-color: #aaa;
+  background-color: #526d82;
   color: white;
   padding: 0.6em 1.2em;
   border: none;
@@ -430,10 +539,15 @@
   background-color: #435a70;
 }
 
+.cancelButton {
+  background-color: #aaa;
+}
+
 .cancelButton:hover {
   background-color: #888;
 }
 
+/* File Upload */
 .fileUploadButton {
   display: flex;
   align-items: center;
@@ -442,6 +556,7 @@
   padding: 0.5em;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 1.5em;
 }
 
 .uploadIcon {
@@ -452,12 +567,7 @@
   display: none;
 }
 
-.uploadedImage {
-  max-width: 150px;
-  max-height: 150px;
-  border-radius: 10px;
-  margin-top: 10px;
-}
+
 
 .mealForm p {
   margin: 0;
@@ -468,6 +578,59 @@
   color: #526d82;
 }
 
-.mealImage {
-  margin-top: 10px;
+.uploadedImage {
+  max-width: 4em;
+  border-radius: 5px;
+}
+
+.closeButton{
+  color: #526d82;
+  font-size: 1.4em;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.2em;
+  padding: 0.3em;
+}
+
+.grabber{
+  font-size: 2.3em;
+  color: #526d82;
+  cursor: pointer;
+}
+
+.editButton{
+  color: #526d82;
+  font-size: 1.3em;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.2em;
+  padding: 0.3em;
+}
+
+.closeButton:hover, .editButton:hover{
+  background-color: #526d82;
+  color: #dde6ed;
+}
+
+
+.buttonGroup{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em; 
+}
+
+.popUpTitle{
+  margin: 0;
+  font-family: "Sf Pro Display", sans-serif;
+  margin-bottom: 2em;
+  color: #27374d;
 }
