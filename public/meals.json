@@ -1,26 +1,52 @@
 {
   "meals": [
     {
-      "mealName": "Bécsi szelet",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non euismod nisi.",
-      "price": "3590",
-      "allergens": "asdad",
-      "category": "Főételek",
+      "mealName": "Apáturam tatár beefsteak",
+      "description": "fermentált retek komlóvaj, savanyú mustár, malátás pirítós",
+      "price": "5490",
+      "allergens": "",
+      "category": "Előétel",
       "imageURL": null
     },
     {
-      "mealName": "sdsdf",
-      "description": "sdfsdf",
-      "price": "2100",
-      "category": "Főételek",
+      "mealName": "Wagyu",
+      "description": "rebarbara, kaviár, pezsgő",
+      "price": "4990",
+      "allergens": "",
+      "category": "Előétel",
       "imageURL": null
     },
     {
-      "mealName": "Gyümölcsleves",
-      "description": "tejszínhabbal",
-      "price": "950",
+      "mealName": "Marha erőleves",
+      "description": "zsenge zöldségek, pászkagombóc és húsgombóc",
+      "price": "2450",
+      "allergens": "",
       "category": "Levesek",
       "imageURL": null
+    },
+    {
+      "mealName": "Kovászos uborkaleves",
+      "description": "malaccsászár",
+      "price": "2450",
+      "allergens": "",
+      "category": "Levesek",
+      "imageURL": null
+    },
+    {
+      "mealName": "Apátúr smoothie",
+      "description": "édes rizottó, gyümölcsök",
+      "price": "2990",
+      "allergens": "",
+      "category": "Levesek",
+      "imageURL": null
+    },
+    {
+      "mealName": "Tiramisu",
+      "description": "kahsghdasgagsdiuh",
+      "price": "4300",
+      "allergens": "Földimogyoró, Rákfélék",
+      "category": "Desszertek",
+      "imageURL": "blob:http://localhost:3000/9403c49a-da31-4a1f-a06a-fab569514318"
     }
   ]
 }

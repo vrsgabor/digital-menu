@@ -267,7 +267,7 @@
     border-radius: 1em;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
-    width: 40%;
+    width: 35%;
     animation: floatIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
   
@@ -277,7 +277,7 @@
   
   .popupImage {
     width: 25%;
-    height: 125px;
+    height: 11em;
     border-radius: 1em;
     background-color: #27374d;
     object-fit: cover;

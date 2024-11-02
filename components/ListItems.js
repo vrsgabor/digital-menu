@@ -1,11 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Etlap.module.css";
-import { AiOutlineUpload } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
-import { IoMdRemoveCircleOutline} from "react-icons/io";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
 import { GoGrabber } from "react-icons/go";
+import { FaFileImage } from "react-icons/fa";
+import Select from "react-select";
 
 const ListItems = () => {
   const [tabs, setTabs] = useState([{ name: "Új kategória", editable: false }]);
@@ -17,13 +18,24 @@ const ListItems = () => {
   const [newMeal, setNewMeal] = useState({
     mealName: "",
     description: "",
-    allergens: "",
+    allergens: [], // Initialize allergens as an array
     price: "",
     photo: null,
   });
   const [editMealIndex, setEditMealIndex] = useState(null); // Track meal being edited
   const [popupVisible, setPopupVisible] = useState(false); // Handle visibility state
   const [errors, setErrors] = useState({}); // Track validation errors
+
+  // Define the allergen options
+  const allergenOptions = [
+    { value: "gluten", label: "Glutén" },
+    { value: "lactose", label: "Laktóz" },
+    { value: "peanuts", label: "Földimogyoró" },
+    { value: "soy", label: "Szója" },
+    { value: "nuts", label: "Diófélék" },
+    { value: "shellfish", label: "Rákfélék" },
+    // Add more allergens as needed
+  ];
 
   // Fetch meals data from the meals.json file on component mount
   useEffect(() => {
@@ -152,7 +164,7 @@ const ListItems = () => {
       setNewMeal({
         mealName: "",
         description: "",
-        allergens: "",
+        allergens: [],
         price: "",
         photo: null,
       });
@@ -174,12 +186,18 @@ const ListItems = () => {
         mealName: meal.mealName,
         description: meal.description,
         price: meal.price,
-        allergens: meal.allergens,
+        allergens: Array.isArray(meal.allergens)
+          ? meal.allergens
+              .map((allergen) =>
+                allergenOptions.find((option) => option.value === allergen)?.label
+              )
+              .join(", ") // Convert allergens array to a comma-separated string of labels
+          : "",
         category: tab.name,
         imageURL: meal.photo ? URL.createObjectURL(meal.photo) : null,
       })) || []
     );
-
+  
     try {
       const response = await fetch("/api/updateMeals", {
         method: "POST",
@@ -188,9 +206,9 @@ const ListItems = () => {
         },
         body: JSON.stringify(flattenedMeals),
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok) {
         alert(result.message);
       } else {
@@ -200,6 +218,7 @@ const ListItems = () => {
       console.error("Error saving meals:", error);
     }
   };
+  
 
   const renderMealForm = (tabIndex) => (
     <div>
@@ -207,24 +226,35 @@ const ListItems = () => {
         <div key={mealIndex} className={styles.mealForm}>
           <div className={styles.formWrapper}>
             <GoGrabber className={styles.grabber} />
-            
+
             {/* Conditionally render the image if it's provided */}
             {meal.photo && (
               <img src={URL.createObjectURL(meal.photo)} alt="Meal" className={styles.uploadedImage} />
             )}
-  
+
             {/* Conditionally render the mealName */}
-            {meal.mealName && <p>{meal.mealName}</p>}
-  
+            {meal.mealName && <p>Név:{" "}{meal.mealName}</p>}
+
             {/* Conditionally render the description */}
-            {meal.description && <p className={styles.description}>{meal.description}</p>}
-  
+            {meal.description && <p className={styles.description}>Leírás:{" "}{meal.description}</p>}
+
             {/* Conditionally render the allergens */}
-            {meal.allergens && <p>{meal.allergens}</p>}
-  
+            {Array.isArray(meal.allergens) && meal.allergens.length > 0 ? (
+            <p>
+              Allergének:{" "}
+              {meal.allergens
+                .map((allergen) =>
+                  allergenOptions.find((option) => option.value === allergen)?.label
+                )
+                .join(", ")}
+            </p>
+          ) : (
+            <p>Allergének: Nincs megadva</p> // If no allergens are provided
+          )}
+
             {/* Conditionally render the price */}
-            {meal.price && <p>{meal.price} Ft</p>}
-  
+            {meal.price && <p>Ár:{" "}{meal.price} Ft</p>}
+
             <div className={styles.buttonGroup}>
               <button
                 className={styles.editButton}
@@ -247,57 +277,121 @@ const ListItems = () => {
       </button>
     </div>
   );
-  
 
   const renderPopup = () => (
     showPopup && (
       <div className={`${styles.popupOverlay} ${popupVisible ? styles.visible : styles.hidden}`}>
-        <div className={`${styles.popupContent}`}>
+        <div className={styles.popupContent}>
           <h2 className={styles.popUpTitle}>{editMealIndex !== null ? "Tétel szerkesztése" : "Új tétel hozzáadása"}</h2>
           <div className={styles.inputFieldWrapper}>
-          <input
-            type="text"
-            placeholder="Név"
-            value={newMeal.mealName}
-            onChange={(e) => handleMealInputChange("mealName", e.target.value)}
-            className={`${errors.mealName ? styles.inputError : ""} ${styles.popUpInput}`}
-        
-          />
-          {errors.mealName && <p className={styles.errorMessage}>{errors.mealName}</p>}
-          <input
-            type="text"
-            placeholder="Leírás"
-            value={newMeal.description}
-            onChange={(e) => handleMealInputChange("description", e.target.value)}
-            className={styles.popUpInput}
-          />
-          <input
-            type="text"
-            placeholder="Allergének"
-            value={newMeal.allergens}
-            onChange={(e) => handleMealInputChange("allergens", e.target.value)}
-            className={styles.popUpInput}
-          />
-          <input
-          type="number"
-          placeholder="Ár"
-          value={newMeal.price}
-          onChange={(e) => handleMealInputChange("price", e.target.value)}
-          className={`${errors.price ? styles.inputError : ""} ${styles.numberInput} ${styles.popUpInput}`}
-          />
-
-          {errors.price && <p className={styles.errorMessage}>{errors.price}</p>}
-          </div>
-          
-          <label className={styles.fileUploadButton}>
-            <AiOutlineUpload className={styles.uploadIcon} />
-            Kép feltöltése
             <input
-              type="file"
-              onChange={(e) => handleMealInputChange("photo", e.target.files[0])}
-              className={styles.fileInput}
+              type="text"
+              placeholder="Név"
+              value={newMeal.mealName}
+              onChange={(e) => handleMealInputChange("mealName", e.target.value)}
+              className={`${errors.mealName ? styles.inputError : ""} ${styles.popUpInput}`}
             />
-          </label>
+            {errors.mealName && <p className={styles.errorMessage}>{errors.mealName}</p>}
+            <input
+              type="text"
+              placeholder="Leírás"
+              value={newMeal.description}
+              onChange={(e) => handleMealInputChange("description", e.target.value)}
+              className={styles.popUpInput}
+            />
+
+            {/* Modern multi-select dropdown for allergens */}
+            <Select
+              isMulti
+              options={allergenOptions}
+              value={allergenOptions.filter(option => Array.isArray(newMeal.allergens) && newMeal.allergens.includes(option.value))} // Ensure newMeal.allergens is an array
+              onChange={(selectedOptions) =>
+                handleMealInputChange(
+                  "allergens",
+                  selectedOptions.map(option => option.value)
+                )
+              }
+              placeholder="Válasszon allergéneket"
+              className={styles.popUpInput}
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  backgroundColor: "#f9f9f9", // Customize the control (input area)
+                  borderColor: "#dde6ed",         // Border color
+                  boxShadow: "none",           // Remove shadow
+                  "&:hover": {                 // Hover state
+                    borderColor: "#dde6ed",
+                  },
+                }),
+                multiValue: (base) => ({
+                  ...base,
+                  backgroundColor: "#dde6ed", // Customize selected items (pill)
+                  color: "#526d82",
+                }),
+                placeholder: (base) => ({
+                  ...base,
+                  color: "#526d82",        // Customize the color of the placeholder
+                }),
+                multiValueLabel: (base) => ({
+                  ...base,
+                  color: "#526d82",           // Customize the label inside the selected item
+                }),
+                multiValueRemove: (base) => ({
+                  ...base,
+                  color: "#526d82",
+                  ":hover": {
+                    backgroundColor: "#526d82", // Customize remove button hover effect
+                    color: "white",
+                  },
+                }),
+                dropdownIndicator: (base) => ({
+                  ...base,
+                  color: "#526d82", // Customize the arrow color
+                  "&:hover": {
+                    color: "#526d82", // Change color on hover
+                  },
+                }),
+                indicatorSeparator: (base) => ({
+                  ...base,
+                  backgroundColor: "#dde6ed", // Customize the divider line color
+                }),
+                clearIndicator: (base) => ({
+                  ...base,
+                  color: "#526d82", // Customize the "Delete All" button color
+                  "&:hover": {
+                    color: "#526d82", // Change the color on hover
+                  },
+                }),
+              }}
+            />
+
+
+            <input
+              type="number"
+              placeholder="Ár"
+              value={newMeal.price}
+              onChange={(e) => handleMealInputChange("price", e.target.value)}
+              className={`${errors.price ? styles.inputError : ""} ${styles.numberInput} ${styles.popUpInput}`}
+            />
+            {errors.price && <p className={styles.errorMessage}>{errors.price}</p>}
+          </div>
+          <div className={styles.uploader}>
+            <label>
+              <div className={styles.imageUploader}>
+                <FaFileImage className={styles.uploadIcon} />
+                <input
+                  type="file"
+                  onChange={(e) => handleMealInputChange("photo", e.target.files[0])}
+                  className={styles.fileInput}
+                />
+              </div>
+            </label>
+
+            {/* Conditionally display the uploaded file name */}
+            {newMeal.photo && (
+              <p className={styles.fileName}>Feltöltött fájl: {newMeal.photo.name}</p>
+            )}
+          </div>
           <div className={styles.popupButtons}>
             <button onClick={addMealToTab} className={styles.okButton}>OK</button>
             <button onClick={triggerClosePopup} className={styles.okButton}>Mégsem</button>
@@ -310,7 +404,10 @@ const ListItems = () => {
   return (
     <div>
       {loading ? (
-        <div>Betöltés...</div>
+        <div className={styles.loaderWrapper}>
+          <div className={styles.loader}> </div>
+          <div className={styles.loaderText}>Betöltés...</div>
+        </div>
       ) : (
         <div className={styles.contentWrapper}>
           <div className={styles.itemsContainer}>
@@ -330,9 +427,7 @@ const ListItems = () => {
                       />
                     ) : (
                       <div
-                        className={`${styles.tabButton} ${
-                          activeTab === index ? styles.activeTab : ""
-                        }`}
+                        className={`${styles.tabButton} ${activeTab === index ? styles.activeTab : ""}`}
                         onClick={() => handleTabChange(index)}
                       >
                         <span>{tab.name}</span>
