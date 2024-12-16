@@ -125,7 +125,7 @@ const ListItems = () => {
       setTabs(updatedTabs);
       setMeals(updatedMeals);
     } else {
-      alert("You can't delete the last remaining tab.");
+      alert("A fül törlése nem lehetséges.");
     }
   };
 

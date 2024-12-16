@@ -1,18 +1,17 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 import styles from '../styles/Menu.module.css';
 
 const MenuHeader = () => {
   const [restaurantInfo, setRestaurantInfo] = useState({
     restaurantName: '',
-    restaurantAddress: ''
+    restaurantAddress: '',
   });
-
 
   useEffect(() => {
     const fetchRestaurantInfo = async () => {
       try {
-        const response = await fetch('/restaurantInfo.json');
+        const response = await fetch('/api/restaurant-info');
         const data = await response.json();
         setRestaurantInfo({
           restaurantName: data.restaurantName,
@@ -28,8 +27,8 @@ const MenuHeader = () => {
 
   return (
     <div className={styles.MenuHeader}>
-      <h1 className={styles.Title}>{restaurantInfo.restaurantName || 'Betöltés...'}</h1>
-      <h2 className={styles.SubTitle}>{restaurantInfo.restaurantAddress || 'Betöltés...'}</h2>
+      <h1 className={styles.Title}>{restaurantInfo.restaurantName || 'Loading...'}</h1>
+      <h2 className={styles.SubTitle}>{restaurantInfo.restaurantAddress || 'Loading...'}</h2>
     </div>
   );
 };

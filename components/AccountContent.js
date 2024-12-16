@@ -54,18 +54,17 @@ const AccountContent = () => {
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
 
-    // Clear any previous timeout for this field
     if (timeoutRefs.current[name]) {
       clearTimeout(timeoutRefs.current[name]);
     }
 
-    // Update the actual password state immediately
+    
     setPasswords((prevPasswords) => ({
       ...prevPasswords,
       [name]: value,
     }));
 
-    // Immediately mask the previous characters and show the latest one
+    
     setMaskedPasswords((prevMasked) => ({
       ...prevMasked,
       [name]: value.length > 1
@@ -73,7 +72,7 @@ const AccountContent = () => {
         : value,
     }));
 
-    // After 2 seconds, mask the last character
+    
     timeoutRefs.current[name] = setTimeout(() => {
       setMaskedPasswords((prevMasked) => ({
         ...prevMasked,

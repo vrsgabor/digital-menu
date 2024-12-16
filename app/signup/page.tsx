@@ -2,13 +2,13 @@
 import styles from '../../styles/Signup.module.css';
 import '../../styles/global.css';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Update the import to next/navigation
+import { useRouter } from 'next/navigation';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter(); // Use the new router from next/navigation
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,7 +22,7 @@ export default function Signup() {
     });
 
     if (res.ok) {
-      router.push('/login'); // Redirect to the login page after successful signup
+      router.push('/login');
     } else {
       const data = await res.json();
       setError(data.message);
