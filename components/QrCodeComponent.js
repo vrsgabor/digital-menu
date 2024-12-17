@@ -7,7 +7,7 @@ import styles from '../styles/Qrcode.module.css';
 const QrCodeComponent = () => {
   const defaultLogo = null;
   const defaultColor = '#000000';
-  const defaultQrCodeData = 'http://localhost:3000/Menu';
+  const defaultQrCodeData = 'http://192.168.0.106:3000/Menu';
   
   const [logo, setLogo] = useState(defaultLogo);
   const [color, setColor] = useState(defaultColor);
@@ -84,7 +84,7 @@ const QrCodeComponent = () => {
       downloadLink.click();
       document.body.removeChild(downloadLink);
     } else {
-      alert('There was an issue downloading the QR code. Please try again.');
+      alert('Probléma adódott a QR kód letöltése során. Kérjük próbálkozzon újra.');
     }
   };
 
